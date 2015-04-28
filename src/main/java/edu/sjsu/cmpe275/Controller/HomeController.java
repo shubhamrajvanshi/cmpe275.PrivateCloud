@@ -1,4 +1,4 @@
-package edu.sjsu.cmpe275;
+package edu.sjsu.cmpe275.Controller;
 
 import java.net.URL;
 import java.text.DateFormat;
