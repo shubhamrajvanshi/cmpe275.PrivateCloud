@@ -4,9 +4,20 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface VmService {
-public void createVM();
+// VM functions	
+public void createVM(int selection, String vmname);
 public boolean deleteVM(String vmname);
-public void getVM();
-public void getHost();
+public void getVM(String vmname);
+public boolean powerOFF(String vmname);
+
+// Host functions
+//public void getHost();
+public boolean powerOn(String string);
+public void getHost(String hostName);
+
+
+
+
+
 
 }

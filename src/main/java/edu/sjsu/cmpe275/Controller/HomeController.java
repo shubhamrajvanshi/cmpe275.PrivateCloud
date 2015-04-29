@@ -41,7 +41,11 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate );
 		//System.out.println(uRL.toString());
 		
-		vmServiceImpl.getVM();
+		vmServiceImpl.createVM(2,"vm1");
+		vmServiceImpl.createVM(4,"vm2");
+		vmServiceImpl.createVM(7,"vm3");
+	//	vmServiceImpl.powerOn("CentOS_1024MB_2cpu_tmpl1");
+	//	vmServiceImpl.powerOFF("CentOS_1024MB_2cpu_tmpl1");
 		
 		return "home";
 	}
