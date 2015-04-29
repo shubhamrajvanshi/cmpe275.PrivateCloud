@@ -14,6 +14,7 @@ public boolean powerOFF(String vmname);
 //public void getHost();
 public boolean powerOn(String string);
 public void getHost(String hostName);
+public boolean addHost(String hostname, String user ,String password);
 
 
 

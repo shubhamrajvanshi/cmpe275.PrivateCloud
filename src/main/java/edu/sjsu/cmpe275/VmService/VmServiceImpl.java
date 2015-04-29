@@ -3,14 +3,22 @@ package edu.sjsu.cmpe275.VmService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.rmi.RemoteException;
+import java.security.MessageDigest;
+import java.security.cert.X509Certificate;
 import java.util.Random;
+
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.vmware.vim25.ComputeResourceConfigSpec;
 import com.vmware.vim25.DuplicateName;
 import com.vmware.vim25.HostConnectSpec;
 import com.vmware.vim25.InvalidName;
@@ -34,6 +42,7 @@ import com.vmware.vim25.mo.ServiceInstance;
 import com.vmware.vim25.mo.Task;
 import com.vmware.vim25.mo.VirtualMachine;
 
+@SuppressWarnings("unused")
 @Component
 public class VmServiceImpl implements VmService{
 	//@Autowired
@@ -41,6 +50,7 @@ public class VmServiceImpl implements VmService{
 	
 	private static Logger LOGGER = LoggerFactory.getLogger("VmServiceImpl");
 	
+	@SuppressWarnings("static-access")
 	@Autowired
 	public VmServiceImpl(ServiceInstance serviceInstance)
 	{
@@ -57,10 +67,12 @@ public class VmServiceImpl implements VmService{
 	/**
 	 * @param serviceInstance the serviceInstance to set
 	 */
+	@SuppressWarnings("static-access")
 	public void setServiceInstance(ServiceInstance serviceInstance) {
 		this.serviceInstance = serviceInstance;
 	}
 
+	@SuppressWarnings("static-access")
 	@Override
 	public void createVM(int selection,String vmname) {
 		// TODO Auto-generated method stub
@@ -270,6 +282,100 @@ public class VmServiceImpl implements VmService{
 		
 	}
 
+	@SuppressWarnings("deprecation")
+	@Override
+	public boolean addHost(String hostname, String user, String password) {
+		// TODO Auto-generated method stub
+		Datacenter dc;
+		try {
+			dc = (Datacenter) serviceInstance.getSearchIndex()
+					.findByInventoryPath("T24-DC");
+		
+		HostConnectSpec spec = new HostConnectSpec();
+		spec.setHostName(hostname);
+		spec.setUserName(user);
+		spec.setPassword(password);
+		String sslThumbprint=null;
+		try {
+			sslThumbprint = getSSLCertForHost(hostname, 443);
+		} catch (Exception e) {
+			System.out.println("Could not retrieve SSL certificate. Now Exiting");
+			System.exit(0);
+			e.printStackTrace();
+		}
+
+
+		spec.setSslThumbprint(sslThumbprint);
+		ComputeResourceConfigSpec compResSpec = new ComputeResourceConfigSpec();
+		Task task = null;
+		String result=null;
+		
+		task=		dc.getHostFolder().addStandaloneHost_Task(spec, compResSpec, true);
+		result = task.waitForMe();
+		
+		
+		
+		if (result == Task.SUCCESS) {
+			System.out.println("Host Added Successfully");
+			return true;
+		} else {
+			System.out.println("Host Could not be added");
+			return false;
+			}
+		} catch (RuntimeFault e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return false;
+	}
+
+	private static String getSSLCertForHost(String host, int port) throws Exception {
+		String sslThumbprint = null;
+		TrustManager trm = new X509TrustManager() {
+			public X509Certificate[] getAcceptedIssuers() {
+				return null;
+			}
+
+			public void checkClientTrusted(X509Certificate[] certs,
+					String authType) {
+			}
+
+			public void checkServerTrusted(X509Certificate[] certs,
+					String authType) {
+			}
+		};
+
+		SSLContext sc = SSLContext.getInstance("SSL");
+		sc.init(null, new TrustManager[] { trm }, null);
+		SSLSocketFactory factory = sc.getSocketFactory();
+		SSLSocket socket = (SSLSocket) factory.createSocket(host, port);
+		socket.startHandshake();
+		SSLSession session = socket.getSession();
+		java.security.cert.Certificate[] servercerts = session
+				.getPeerCertificates();
+		for (int i = 0; i < servercerts.length; i++) {
+			MessageDigest mDigest = MessageDigest.getInstance("SHA1");
+			byte[] result = mDigest.digest(servercerts[i].getEncoded());
+			StringBuffer sb = new StringBuffer();
+			for (int j = 0; j < result.length; j++) {
+
+				sb.append(Integer.toString((result[j] & 0xff) + 0x100, 16)
+						.substring(1));
+				if (j != result.length - 1)
+					sb.append(":");
+
+			}
+			sslThumbprint = sb.toString();
+			sb.substring(sb.lastIndexOf(":") - 1);
+			sslThumbprint = sb.toString();
+
+		}
+		socket.close();
+		return sslThumbprint;
+	}
 	
 
 
