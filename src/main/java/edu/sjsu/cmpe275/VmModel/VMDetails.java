@@ -17,7 +17,6 @@ import edu.sjsu.cmpe275.*;
 @Table(name = "vmdetails", catalog = "private_cloud", uniqueConstraints = @UniqueConstraint(columnNames = { "vmid", "userid" }))
 public class VMDetails {
 
-	private Integer vmid;
 	private User user;
 	private String vmname;
 	private Integer vmstate;
@@ -25,34 +24,13 @@ public class VMDetails {
 	public VMDetails() {
 	}
 
-	public VMDetails(User user, Integer vmid, String vmname, Integer vmstate) {
+	public VMDetails(String vmname, User user, Integer vmstate) {
 		this.user = user;
-		this.vmid = vmid;
 		this.vmname = vmname;
 		this.vmstate = vmstate;
 	}
 	
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "vmid", unique = true, nullable = false)
-	public Integer getVmid() {
-		return this.vmid;
-	}
-
-	public void setVmid(Integer vmid) {
-		this.vmid = vmid;
-	}
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id", nullable = false)
-	public User getUser() {
-		return this.user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-	
 	@Column(name = "vmname", nullable = false, length = 50)
 	public String getVmname() {
 		return this.vmname;
@@ -62,12 +40,22 @@ public class VMDetails {
 		this.vmname = vmname;
 	}
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "email", nullable = false)
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
 	@Column(name = "vmstate", nullable = false)
-	public String getVmstate() {
+	public Integer getVmstate() {
 		return this.vmstate;
 	}
 
-	public void setVmstate(String vmstate) {
+	public void setVmstate(Integer vmstate) {
 		this.vmstate = vmstate;
 	}
 }

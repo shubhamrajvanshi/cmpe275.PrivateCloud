@@ -9,25 +9,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import edu.sjsu.cmpe275.VmDao.*;
+import edu.sjsu.cmpe275.VmModel.*;
 import edu.sjsu.cmpe275.VmService.VmService;
-
-/**
- * Handles requests for the application home page.
- */
-/**
- * @author Shubham
- *
- */
 
 @Controller
 public class HomeController {
 	
 	private User temp_user;
 	private int cnt = 0; 
+	private VmDao vmdao;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	@Autowired
@@ -66,21 +62,23 @@ public class HomeController {
 						@RequestParam(value="lastname") String lastname,
 						@RequestParam(value="email") String email,
 						@RequestParam(value="password") String password) {
-		logger.info("Sign-up : ", username);
+		logger.info("Sign-up : ", email);
 		
 		//Implement user session to login a user
-		temp_user = new User(cnt++, email, password, FALSE);	
+		temp_user = new User(email, firstname, lastname, password, false);	
 
 		return temp_user;
 	}
 	
 	//Sign-in: Retrives user details using getUser(email)
 	@RequestMapping(value = "/user/{email}", method = RequestMethod.POST)
-	public User signup(@RequestParam(value="password") String password) {
-		logger.info("Sign-in : ", username);
+	public User signup(@PathVariable String email,
+					@RequestParam(value="password") String password) {
+		logger.info("Sign-in : ", email);
 		
 		//Implement user session to login a user
-		temp_user = getUser(email);
+		vmdao = new VMDaoImpl();
+		temp_user = vmdao.getUser(email);
 		
 		return temp_user;
 	}

@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.rmi.RemoteException;
 import java.security.MessageDigest;
 import java.security.cert.X509Certificate;
+import java.util.List;
 import java.util.Random;
 
 import javax.net.ssl.SSLContext;
@@ -17,6 +18,7 @@ import javax.net.ssl.X509TrustManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.vmware.vim25.ComputeResourceConfigSpec;
 import com.vmware.vim25.DuplicateName;
@@ -42,6 +44,9 @@ import com.vmware.vim25.mo.ServiceInstance;
 import com.vmware.vim25.mo.Task;
 import com.vmware.vim25.mo.VirtualMachine;
 
+import edu.sjsu.cmpe275.VmDao.*;
+import edu.sjsu.cmpe275.VmModel.*;
+
 @SuppressWarnings("unused")
 @Component
 public class VmServiceImpl implements VmService{
@@ -52,35 +57,6 @@ public class VmServiceImpl implements VmService{
 	private VmDao vmDao;
 	
 	
-	
-	@Transactional(readOnly=true)
-	@Override
-	public UserDetails loadUser(Integer id) throws UserNotFoundException {
-	
-		User user = vmDao.getUser(id);
-		List<VMDetails> instances = getUserInstances(user.getVmdetails());
-
-		return getUserWithInstances(user, instances);
-		
-	}
-	
-	private User getUserWithInstances(User user, List<VMDetails> instances){
-		
-		return new(user.getId(), user.getUsername(), user.getPassword(), user.isAdmin(), instances);
-	}
-	
-	private List<GrantedVms> getUserInstances(Set<VMdetails> instances){
-		
-		Set<GrantedInstances> ginstances = new HashSet<GrantedInstances>();
-
-		for (VMdetails details : VMdetails) {
-			ginstances.add(new SimpleGrantedVms(details.getVmname()));
-		}
-
-		List<GrantedInstances> Result = new ArrayList<GrantedInstances>(ginstances);
-
-		return Result;
-	}
 	
 	private static Logger LOGGER = LoggerFactory.getLogger("VmServiceImpl");
 	

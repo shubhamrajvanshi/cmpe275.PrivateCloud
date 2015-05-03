@@ -25,32 +25,43 @@ public class User {
 	public User() {
 	}
  
-	public User(Integer id, String username, String password, boolean isadmin) {
-		this.id = id;
-		this.username = username;
+	public User(String email, String firstname, String lastname, String password, boolean isadmin) {
+		this.email = email;
+		this.firstname = firstname;
+		this.lastname = lastname;
 		this.password = password;
 		this.isadmin = isadmin;
 	}
  
 	@Id
-	@Column(name = "id", unique = true, 
+	@Column(name = "email", unique = true, 
 		nullable = false)
-	public String getId() {
-		return this.id;
+	public String getEmail() {
+		return this.email;
 	}
  
-	public void setId(String id) {
-		this.id = id;
+	public void setEmail(String email) {
+		this.email = email;
 	}
  
-	@Column(name = "username", 
+	@Column(name = "firstname", 
 			nullable = false, length = 20)
-	public String getUsername() {
-		return this.username;
+	public String getFirstname() {
+		return this.firstname;
 	}
 	 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+	
+	@Column(name = "lastname", 
+			nullable = false, length = 20)
+	public String getLastname() {
+		return this.lastname;
+	}
+	 
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 	
 	@Column(name = "password", 

@@ -2,6 +2,8 @@ package edu.sjsu.cmpe275.VmService;
 
 import org.springframework.stereotype.Component;
 
+import edu.sjsu.cmpe275.VmModel.User;
+
 @Component
 public interface VmService {
 // VM functions	
@@ -15,10 +17,6 @@ public boolean powerOFF(String vmname);
 public boolean powerOn(String string);
 public void getHost(String hostName);
 public boolean addHost(String hostname, String user ,String password);
-
-
-
-
 
 
 }
