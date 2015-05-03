@@ -1,7 +1,6 @@
 package edu.sjsu.cmpe275.VmModel;
 
 import static javax.persistence.GenerationType.IDENTITY;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

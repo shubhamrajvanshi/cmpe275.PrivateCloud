@@ -48,6 +48,40 @@ public class VmServiceImpl implements VmService{
 	//@Autowired
 	private static ServiceInstance serviceInstance;	
 	
+	@Autowired
+	private VmDao vmDao;
+	
+	
+	
+	@Transactional(readOnly=true)
+	@Override
+	public UserDetails loadUser(Integer id) throws UserNotFoundException {
+	
+		User user = vmDao.getUser(id);
+		List<VMDetails> instances = getUserInstances(user.getVmdetails());
+
+		return getUserWithInstances(user, instances);
+		
+	}
+	
+	private User getUserWithInstances(User user, List<VMDetails> instances){
+		
+		return new(user.getId(), user.getUsername(), user.getPassword(), user.isAdmin(), instances);
+	}
+	
+	private List<GrantedVms> getUserInstances(Set<VMdetails> instances){
+		
+		Set<GrantedInstances> ginstances = new HashSet<GrantedInstances>();
+
+		for (VMdetails details : VMdetails) {
+			ginstances.add(new SimpleGrantedVms(details.getVmname()));
+		}
+
+		List<GrantedInstances> Result = new ArrayList<GrantedInstances>(ginstances);
+
+		return Result;
+	}
+	
 	private static Logger LOGGER = LoggerFactory.getLogger("VmServiceImpl");
 	
 	@SuppressWarnings("static-access")
@@ -74,7 +108,7 @@ public class VmServiceImpl implements VmService{
 
 	@SuppressWarnings("static-access")
 	@Override
-	public boolean createVM(int selection,String vmname) {
+	public void createVM(int selection,String vmname) {
 		// TODO Auto-generated method stub
 		try{
 		String template= null;
@@ -134,15 +168,13 @@ public class VmServiceImpl implements VmService{
 		Task task = vm.cloneVM_Task((Folder) dc.getVmFolder(), vmname,vmclspec);
 		LOGGER.info("Launching the VM clone task. "
 				+ "Please wait ...");
-			
+
 		if (task.waitForTask() == task.SUCCESS) {
 			LOGGER.info("VM got deployed successfully.");
 			System.out.println("VM got deployed successfully.");
-			return true ;
 		} else {
 			LOGGER.info("Failure -: VM deployment failed");
 			System.out.println("Failure -: VM deployment failed");
-			return false;
 			}
 		}
 		catch (InvalidProperty e) {
@@ -158,7 +190,6 @@ public class VmServiceImpl implements VmService{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return false;
 	}
 
 	@Override
@@ -379,15 +410,6 @@ public class VmServiceImpl implements VmService{
 		socket.close();
 		return sslThumbprint;
 	}
-
-	@Override
-	public boolean getTask() {
-		// TODO Auto-generated method stub
-		
-		return false;
-	}
 	
-
-
 
 }

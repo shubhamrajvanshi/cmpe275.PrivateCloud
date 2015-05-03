@@ -26,6 +26,9 @@ import edu.sjsu.cmpe275.VmService.VmService;
 @Controller
 public class HomeController {
 	
+	private User temp_user;
+	private cnt = 0; 
+	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	@Autowired
 	VmService vmServiceImpl ;
@@ -49,30 +52,40 @@ public class HomeController {
 	//	vmServiceImpl.createVM(2,"vm1");
 	//	vmServiceImpl.createVM(4,"vm2");
 	//	vmServiceImpl.createVM(7,"vm3");
-		vmServiceImpl.powerOn("vm2");
+	//	vmServiceImpl.powerOn("CentOS_1024MB_2cpu_tmpl1");
 	//	vmServiceImpl.powerOFF("CentOS_1024MB_2cpu_tmpl1");
 	//	vmServiceImpl.addHost("130.65.133.122", "root", "12!@qwQW");
 		
 		return "home";
 	}
 	
-	/**
-	 * Start user login and logout functions
-	 */
 	
-	@RequestMapping(value = "/userlogin", method = RequestMethod.GET)
-	public String login(@RequestParam(value="username") String username,
-			@RequestParam(value="password") String password) {
-		logger.info("Logging user ", username);
+	//Sign-up: Returns created user
+	@RequestMapping(value = "/user", method = RequestMethod.POST)
+	public User signup(@RequestParam(value="firstname") String firstname,
+						@RequestParam(value="lastname") String lastname,
+						@RequestParam(value="email") String email,
+						@RequestParam(value="password") String password) {
+		logger.info("Sign-up : ", username);
 		
 		//Implement user session to login a user
-		
-	
+		temp_user = new User(cnt++, email, password, FALSE);	
 
-		return "User Logged In";
+		return temp_user;
 	}
 	
-	@RequestMapping(value = "/userlogout", method = RequestMethod.GET)
+	//Sign-in: Retrives user details using getUser(email)
+	@RequestMapping(value = "/user/{email}", method = RequestMethod.POST)
+	public User signup(@RequestParam(value="password") String password) {
+		logger.info("Sign-in : ", username);
+		
+		//Implement user session to login a user
+		temp_user = getUser(email);
+		
+		return temp_user;
+	}
+	
+	@RequestMapping(value = "/user/{userid}", method = RequestMethod.PUT)
 	public String logout(@RequestParam(value="username") String username
 			) {
 		logger.info("Logging out user ", username);
@@ -94,7 +107,7 @@ public class HomeController {
 	 * @param vmname
 	 * @return 
 	 */
-	@RequestMapping(value = "/createvm", method = RequestMethod.POST)
+	@RequestMapping(value = "/vm", method = RequestMethod.POST)
 	public String createvm(@RequestParam(value="templateid") int templateid,
 						   @RequestParam(value="vmname") String vmname) {
 		logger.info("Creating VM with templateid ", templateid);
@@ -110,7 +123,7 @@ public class HomeController {
 	 * @param vmname
 	 * @return
 	 */
-	@RequestMapping(value = "/poweroff", method = RequestMethod.PUT)
+	@RequestMapping(value = "/vm/{status}", method = RequestMethod.PUT)
 	public String poweroff(@RequestParam(value="vmname") String vmname) {
 		logger.info("Powering Off vm ", vmname);
 		
@@ -125,7 +138,10 @@ public class HomeController {
 	 * @param vmname
 	 * @return
 	 */
-	@RequestMapping(value = "/poweron", method = RequestMethod.PUT)
+	/*Not required
+	 * Will be handled in "/vm/{status}"
+	 * @RequestMapping(value = "/poweron", method = RequestMethod.PUT)
+	 
 	public String poweron(@RequestParam(value="vmname") String vmname) {
 		logger.info("Powering On vm ", vmname);
 		
@@ -134,7 +150,7 @@ public class HomeController {
 	
 
 		return "home";
-	}
+	}*/
 	
 	/**
 	 * @param hostname
@@ -142,7 +158,7 @@ public class HomeController {
 	 * @param password
 	 * @return
 	 */
-	@RequestMapping(value = "/addhost", method = RequestMethod.POST)
+	@RequestMapping(value = "/host", method = RequestMethod.POST)
 	 public String addhost(@RequestParam(value="hostname") String hostname,@RequestParam(value="user") String user,
 			 			   @RequestParam(value="password") String password)	{
 
