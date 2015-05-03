@@ -27,7 +27,7 @@ import edu.sjsu.cmpe275.VmService.VmService;
 public class HomeController {
 	
 	private User temp_user;
-	private cnt = 0; 
+	private int cnt = 0; 
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	@Autowired

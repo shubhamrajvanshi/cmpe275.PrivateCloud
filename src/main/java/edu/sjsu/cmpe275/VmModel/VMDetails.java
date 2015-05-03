@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import com.mkyong.users.model.User;
+import edu.sjsu.cmpe275.*;
 
 @Entity
 @Table(name = "vmdetails", catalog = "private_cloud", uniqueConstraints = @UniqueConstraint(columnNames = { "vmid", "userid" }))

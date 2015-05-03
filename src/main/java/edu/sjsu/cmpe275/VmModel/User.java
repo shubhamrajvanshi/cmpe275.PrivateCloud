@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.mkyong.users.model.UserRole;
+import edu.sjsu.cmpe275.*;
  
 @Entity
 @Table(name = "user", catalog = "private_cloud")
