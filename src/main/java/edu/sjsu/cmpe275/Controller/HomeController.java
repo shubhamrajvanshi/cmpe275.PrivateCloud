@@ -49,7 +49,7 @@ public class HomeController {
 	//	vmServiceImpl.createVM(2,"vm1");
 	//	vmServiceImpl.createVM(4,"vm2");
 	//	vmServiceImpl.createVM(7,"vm3");
-	//	vmServiceImpl.powerOn("CentOS_1024MB_2cpu_tmpl1");
+		vmServiceImpl.powerOn("vm2");
 	//	vmServiceImpl.powerOFF("CentOS_1024MB_2cpu_tmpl1");
 	//	vmServiceImpl.addHost("130.65.133.122", "root", "12!@qwQW");
 		
