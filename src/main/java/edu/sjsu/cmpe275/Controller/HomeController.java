@@ -14,21 +14,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import edu.sjsu.cmpe275.VmDao.VMDaoImpl;
 import edu.sjsu.cmpe275.VmDao.VmDao;
 import edu.sjsu.cmpe275.VmModel.*;
 import edu.sjsu.cmpe275.VmService.*;
 
 @Controller
 public class HomeController {
-	
-	private User temp_user=null, user_session=null;
-	private VMDetails temp_vm=null, vm_session=null;
-	private int cnt = 0; 
-	private VmDao vmdao;
-	
+		
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	
 	@Autowired
 	VmService vmServiceImpl ;
+	@Autowired
+	User user;
+	@Autowired
+	VMDetails vMDetails; 
+	@Autowired
+	VmDao vMDaoImpl;
+	
 	
 
 	
@@ -67,10 +71,10 @@ public class HomeController {
 		logger.info("Sign-up : ", email);
 		
 		//Implement user session to login a user
-		temp_user = new User(email, firstname, lastname, password, false);
-		user_session = temp_user;
+		user = new User(email, firstname, lastname, password, false);
+		user = user;
 
-		return temp_user;
+		return user;
 	}
 	
 	//Sign-in: Retrives user details using getUser(email)
@@ -80,12 +84,11 @@ public class HomeController {
 		logger.info("Sign-in : ", email);
 		
 		//Implement user session to login a user
-		vmdao = new VMDaoImpl();
-		temp_user = vmdao.getUser(email);
-		VMDetails vms[] = vmdao.getVMDetails(email);
-		user_session = temp_user;
 		
-		return temp_user;
+		user = vMDaoImpl.getUser(email);
+		VMDetails vms[] = vMDaoImpl.getVMDetails(email);
+		
+		return user;
 	}
 	
 	//Create VM: Set default state=0 i.e. stop
@@ -97,12 +100,11 @@ public class HomeController {
 		logger.info("Creating VM ", vmname);
 		
 		//Implement user session to login a user
-		if(user_session != null){
-			temp_vm = new VMDetails(vmname, user_session, 0);		
-			VmService.createVM(templateid,vmname);		
-			vm_session = temp_vm;
+		if(user != null){
+			vMDetails = new VMDetails(vmname, user, 0);		
+			//VmService.createVM(templateid,vmname);	
 		}
-		return temp_vm;
+		return vMDetails;
 	}
 	
 	//When user clicks on particular VM it comes here
@@ -111,10 +113,10 @@ public class HomeController {
 						@PathVariable String vmname) {
 		logger.info("Showing VM ", vmname);
 		
-		if(user_session != null){
-			vm_session = vmdao.getVMDetails(email, vmname);
+		if(user != null){
+			vMDetails = vMDaoImpl.getVMDetails(email, vmname);
 		}
-		return vm_session;
+		return vMDetails;
 	}
 
 	//Change the status of the VM
@@ -123,17 +125,17 @@ public class HomeController {
 						@PathVariable String status) {
 		logger.info("Powering Off vm ", vmname);
 		
-		if(vm_session){
+		if(vMDetails != null){
 			if(status.equals("PowerOff")){
 				vmServiceImpl.powerOFF(vmname);
-				vm_session.setVmstate(0);
+				vMDetails.setVmstate(0);
 			}
 			else if(status.equals("PowerOn")){
 				vmServiceImpl.powerOn(vmname);
-				vm_session.setVmstate(1);
+				vMDetails.setVmstate(1);
 			}
 		}
-		return vm_session;
+		return vMDetails;
 	}
 	
 	

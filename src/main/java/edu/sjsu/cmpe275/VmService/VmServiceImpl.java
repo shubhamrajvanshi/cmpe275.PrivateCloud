@@ -84,7 +84,7 @@ public class VmServiceImpl implements VmService{
 
 	@SuppressWarnings("static-access")
 	@Override
-	public void createVM(int selection,String vmname) {
+	public void createVM(Integer selection, String vmname) {
 		// TODO Auto-generated method stub
 		try{
 		String template= null;

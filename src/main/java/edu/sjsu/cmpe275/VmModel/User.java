@@ -2,6 +2,7 @@ package edu.sjsu.cmpe275.VmModel;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,8 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Component;
+
 import edu.sjsu.cmpe275.*;
- 
+
+@SuppressWarnings("unused")
+@Component
 @Entity
 @Table(name = "user", catalog = "private_cloud")
 public class User {
@@ -22,8 +27,8 @@ public class User {
 	boolean isadmin;
 	private Set<VMDetails> vmDetails = new HashSet<VMDetails>(0);
 	
-	public User() {
-	}
+	/*public User() {
+	}*/
  
 	public User(String email, String firstname, String lastname, String password, boolean isadmin) {
 		this.email = email;
