@@ -3,9 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -23,7 +25,7 @@
 	
 	<context:component-scan base-package="edu.sjsu.cmpe275" />
 	
-	
+
  	<beans:bean id="serviceInstance" class="com.vmware.vim25.mo.ServiceInstance" >
 		<beans:constructor-arg type="java.net.URL" value="https://130.65.132.124/sdk"/>
 		<beans:constructor-arg type="java.lang.String" value="administrator"/>
@@ -31,12 +33,36 @@
 		<beans:constructor-arg type="boolean" value="true" />
 	</beans:bean>
  
- 	<beans:bean id="uRL" class="java.net.URL">
+  	<beans:bean id="uRL" class="java.net.URL">
 		<beans:constructor-arg value="https://130.65.132.124/sdk"/>
 	</beans:bean>
 	
-	<beans:bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<beans:property name="dataSource" ref="dataSource" />
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	<beans:bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<beans:property name="sessionFactory" ref="sessionFactory" />
+	</beans:bean>
+	 
+	<beans:bean id="vMDaoImpl" class="edu.sjsu.cmpe275.VmDao.VMDaoImpl">
+        <beans:property name="sessionFactory" ref="sessionFactory" />
+    </beans:bean>
+	
+	<!-- Hibernate 4 SessionFactory Bean definition -->
+    <beans:bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <beans:property name="dataSource" ref="dataSource" />
+        <beans:property name="annotatedClasses">
+            <beans:list>
+                <beans:value>edu.sjsu.cmpe275.VmModel.User</beans:value>
+                <beans:value>edu.sjsu.cmpe275.VmModel.VMDetails</beans:value>
+            </beans:list>
+        </beans:property>
+        <beans:property name="hibernateProperties">
+            <beans:props>
+                <beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect
+                </beans:prop>
+                <beans:prop key="hibernate.show_sql">true</beans:prop>
+            </beans:props>
+        </beans:property>
 	</beans:bean>
 	
 	<beans:bean id="dataSource" class = "org.springframework.jdbc.datasource.DriverManagerDataSource">

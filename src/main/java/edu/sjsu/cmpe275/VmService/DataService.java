@@ -9,19 +9,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import edu.sjsu.cmpe275.VmDao.*;
-import edu.sjsu.cmpe275.VmModel.*;
+import edu.sjsu.cmpe275.VmDao.VmDao;
+import edu.sjsu.cmpe275.VmModel.User;
+import edu.sjsu.cmpe275.VmModel.VMDetails;
+
 
 @Service("dataService")
 public class DataService {
 	
-	@Autowired
-	private VmDao vmDao;
+//	@Autowired
+	private VmDao vMDaoImpl;
 
 	@Transactional(readOnly=true)
 	public User loadUser(String email) throws Exception {
 	
-		User user = vmDao.getUser(email);
+		User user = vMDaoImpl.getUser(email);
+		@SuppressWarnings("unused")
 		List<String> vms = loadInstances(user.getVmdetails());
 		return user;
 		

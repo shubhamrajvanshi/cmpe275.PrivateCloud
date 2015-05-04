@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import edu.sjsu.cmpe275.VmModel.User;
 
+@SuppressWarnings("unused")
 @Component
 public interface VmService {
 // VM functions	

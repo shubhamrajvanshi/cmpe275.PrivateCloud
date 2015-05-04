@@ -2,7 +2,10 @@ package edu.sjsu.cmpe275.VmDao;
 
 import org.springframework.stereotype.Repository;
 
-import edu.sjsu.cmpe275.VmModel.*;
+import edu.sjsu.cmpe275.VmModel.User;
+import edu.sjsu.cmpe275.VmModel.VMDetails;
+
+
 
 @Repository
 public interface VmDao {

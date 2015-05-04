@@ -13,19 +13,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import edu.sjsu.cmpe275.VmDao.VMDaoImpl;
 import edu.sjsu.cmpe275.VmDao.VmDao;
-import edu.sjsu.cmpe275.VmModel.*;
-import edu.sjsu.cmpe275.VmService.*;
+import edu.sjsu.cmpe275.VmModel.User;
+import edu.sjsu.cmpe275.VmModel.VMDetails;
+//import edu.sjsu.cmpe275.VmService.VmService;
+
+
 
 @Controller
 public class HomeController {
 		
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
-	@Autowired
-	VmService vmServiceImpl ;
+//	@Autowired
+//	VmService vmServiceImpl ;
 	@Autowired
 	User user;
 	@Autowired
@@ -40,6 +43,7 @@ public class HomeController {
 	//This page will contain signin, signup options
 	//Come here after sign out 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@ResponseBody
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
@@ -57,7 +61,10 @@ public class HomeController {
 	//	vmServiceImpl.powerOn("CentOS_1024MB_2cpu_tmpl1");
 	//	vmServiceImpl.powerOFF("CentOS_1024MB_2cpu_tmpl1");
 	//	vmServiceImpl.addHost("130.65.133.122", "root", "12!@qwQW");
-		
+		user=vMDaoImpl.getUser("p@p.com");
+		System.out.println("got  " +user.getFirstname()+" "+ user.getIsadmin());
+	//	user = new User("pri@sjsu.edu", "Pri", "Karpe", "ppp", false);
+//		return user;
 		return "home";
 	}
 	
@@ -69,12 +76,17 @@ public class HomeController {
 						@RequestParam(value="email") String email,
 						@RequestParam(value="password") String password) {
 		logger.info("Sign-up : ", email);
-		
+		System.out.println("inside creating user");
 		//Implement user session to login a user
 		user = new User(email, firstname, lastname, password, false);
-		user = user;
-
 		return user;
+	}
+	
+	@RequestMapping(value = "/user/{email}", method = RequestMethod.GET)
+	@ResponseBody
+	public String test(@PathVariable String email){
+		System.out.println(email);
+		return email;
 	}
 	
 	//Sign-in: Retrives user details using getUser(email)
@@ -127,11 +139,11 @@ public class HomeController {
 		
 		if(vMDetails != null){
 			if(status.equals("PowerOff")){
-				vmServiceImpl.powerOFF(vmname);
+	//			vmServiceImpl.powerOFF(vmname);
 				vMDetails.setVmstate(0);
 			}
 			else if(status.equals("PowerOn")){
-				vmServiceImpl.powerOn(vmname);
+	//			vmServiceImpl.powerOn(vmname);
 				vMDetails.setVmstate(1);
 			}
 		}

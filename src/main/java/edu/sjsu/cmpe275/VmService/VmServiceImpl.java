@@ -50,11 +50,9 @@ import edu.sjsu.cmpe275.VmModel.*;
 @SuppressWarnings("unused")
 @Component
 public class VmServiceImpl implements VmService{
-	//@Autowired
+	//@Autowired getting set by autowire constructor
 	private static ServiceInstance serviceInstance;	
 	
-	@Autowired
-	private VmDao vmDao;
 	
 	
 	

@@ -10,14 +10,15 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
-import edu.sjsu.cmpe275.*;
+
 
 @SuppressWarnings("unused")
-@Component
+@Component 
 @Entity
-@Table(name = "user", catalog = "private_cloud")
+@Table(name = "user", catalog = "cmpe275")
 public class User {
 	
 	String email;
@@ -27,8 +28,8 @@ public class User {
 	boolean isadmin;
 	private Set<VMDetails> vmDetails = new HashSet<VMDetails>(0);
 	
-	/*public User() {
-	}*/
+	public User() {
+	}
  
 	public User(String email, String firstname, String lastname, String password, boolean isadmin) {
 		this.email = email;
@@ -80,11 +81,11 @@ public class User {
 	}
  
 	@Column(name = "isadmin", nullable = false)
-	public boolean isadmin() {
+	public boolean getIsadmin() {
 		return this.isadmin;
 	}
  
-	public void setisadmin(boolean isadmin) {
+	public void setIsadmin(boolean isadmin) {
 		this.isadmin = isadmin;
 	}
 	
