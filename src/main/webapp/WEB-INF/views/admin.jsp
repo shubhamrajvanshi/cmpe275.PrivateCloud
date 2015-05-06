@@ -52,6 +52,9 @@
                     <li>
                         <a href="services">Services</a>
                     </li>
+                    <li>
+                        <a href="logout">Logout</a>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -65,8 +68,8 @@
         <!-- Page Heading/Breadcrumbs -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">WELCOME ${user.email}
-                    <small>put email id here</small>
+                <h1 class="page-header">WELCOME ${user.firstname}
+                    <small>${user.email}</small>
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="index">Home</a>
@@ -86,7 +89,7 @@
                 <table style="width:100%">
                 
                     <tr>
-                     <td><a href="vmdetails">vm1</a></td>
+                     <td><a href="vmdetails">${u.vmname}</a></td>
                  </tr>
                        <tr>
                      <td><a href="vmdetails">vm2</a></td>

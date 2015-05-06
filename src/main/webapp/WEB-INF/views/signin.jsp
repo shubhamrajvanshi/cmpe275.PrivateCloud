@@ -1,13 +1,12 @@
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<html lang="en">
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 
 <head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
     <title>CMPE275 TEAM7 SIGNIN</title>
 
@@ -74,31 +73,28 @@
         </div>
         <div class="row">
             
-            <form:form action="signin" method="POST" modelAttribute="user">
+            <form action="signin" method="POST" >
                    
-                    Email:<br>
-                  
-                   <form:input path="email" />
+                   Email:<br>              
+                   <input id="email" type="text" name="email"/>
                     <br>
-                    Password:<br>
-                    
-                    <form:password path="password" />
+                    Password:<br>                    
+                    <input type="password" id='password' name="password" />
                     <br>
-                    
-                <br>
+                                    <br>
                 <br>
                 <font color=blue>
-                <input id="submit" type="submit" value="Sign In" onclick="send()">
+                <input id="submit" type="submit" value="Sign In" >
                 </font>
-            </form:form>
-            <script>
+            </form>
+     <!--        <script>
             function send(){
                var email=document.getElementById('email').value;
                request.setAttribute("email", document.getElementById('email').value);
                //alert(document.getElementById('email').value);
             }
 
-            </script>
+            </script> -->
              
        </div> 
 <hr>

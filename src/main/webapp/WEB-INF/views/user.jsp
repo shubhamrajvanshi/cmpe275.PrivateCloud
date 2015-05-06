@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <html lang="en">
 
 <head>
@@ -52,6 +55,9 @@
                     <li>
                         <a href="services">Services</a>
                     </li>
+                    <li>
+                        <a href="logout" class="btn btn-default">Logout</a>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -65,8 +71,8 @@
         <!-- Page Heading/Breadcrumbs -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">WELCOME ${user.email}
-                    <small>put email id here</small>
+                <h1 class="page-header">WELCOME ${user.firstname}
+                    <small>${user.email}</small>
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="index">Home</a>
@@ -85,12 +91,10 @@
             <h4>Virtual machines:</h4>
                 <table style="width:100%">
                     <tr>
-                    <td><b>Machine:</b></td>
+                    <td><b>Machine:"${vms}"</b></td>
                     </tr>
-                    <tr>
-                     <td><a href="vmdetails">vm1</a></td>
-                     </tr>
-                </table>
+                    
+                </table> 
             </div>
 
             <!-- Blog Sidebar Widgets Column -->

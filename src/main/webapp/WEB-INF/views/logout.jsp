@@ -40,13 +40,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.jsp"><font color=blue>GET VIRTUAL</font></a>
+                <a class="navbar-brand" href="index"><font color=blue>GET VIRTUAL</font></a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="index.jsp">Home</a>
+                        <a href="index" class="btn btn-default">Home</a>
                     </li>
                    
                     </ul>
@@ -73,7 +73,7 @@
 
          <div class="row">
             <div class="col-lg-12">
-                <a href="signin.jsp"><font color="black">Click Here to Sign In Again</a></font>
+                <a href="signin" class="btn btn-default"><font color="black">Click Here to Sign In Again</a></font>
             </div>
         </div>
         <!-- /.row -->

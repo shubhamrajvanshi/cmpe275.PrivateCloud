@@ -1,8 +1,12 @@
 package edu.sjsu.cmpe275.Controller;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import edu.sjsu.cmpe275.VmDao.VmDao;
 import edu.sjsu.cmpe275.VmModel.User;
+import edu.sjsu.cmpe275.VmModel.Luser;
 import edu.sjsu.cmpe275.VmModel.VMDetails;
 //import edu.sjsu.cmpe275.VmService.VmService;
 
@@ -71,6 +76,17 @@ public class HomeController {
 	}
 	
 	
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout() {
+		
+		return "logout";
+	}
+	
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	public String index() {
+		
+		return "index";
+	}
 	//Sign-up: Returns created user
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
 	public User signup(@RequestParam(value="firstname") String firstname,
@@ -88,36 +104,49 @@ public class HomeController {
 	@RequestMapping(value = "/signin", method = RequestMethod.GET)
 	public String sigin(){
 		System.out.println("inside signin get");
+	
 		return "signin";
 	}
 	
 	//Sign-in: Retrives user details using getUser(email)
 	@RequestMapping(value = "/signin", method = RequestMethod.POST)
-	public ModelAndView signin(@ModelAttribute User user) {
-		logger.info("Sign-in : ", user.getEmail());
+	public ModelAndView signin(@RequestParam(value="email") String email,@RequestParam(value="password") String password) {
+		logger.info("Sign-in : ", email);
 		
 		//Implement user session to login a user
-		this.user = vMDaoImpl.getUser(user.getEmail());
+		user = vMDaoImpl.getUser(email);
+		System.out.println(user.getFirstname()+ user.getLastname()+ user.getPassword() + "entered password " + password);
 		ModelAndView model = new ModelAndView();
-//		VMDetails vms[] = vMDaoImpl.getVMDetails(email);
-		if(this.user.getEmail()==user.getEmail() && this.user.getPassword()==user.getPassword()){
+		VMDetails vms[] = vMDaoImpl.getVMDetails(email);
+		/*List <String> list = new ArrayList<String>(5);
+		Set <VMDetails> u = new HashSet<VMDetails>();
+		for(int i = 0; i < vms.length-1; i++){
+			//u.add(vms[i]);
+			list.add(vms[i].getVmname());
+			System.out.println(vms[i].getVmname());
+		}
+		System.out.println("List = " + list.toString());
+		//user.setVmdetails(u);*/
+		
+		if(email.equals(user.getEmail()) && password.equals(user.getPassword())){
 			
 		
-		if(this.user.getEmail()==user.getEmail() && (!this.user.getIsadmin()))
+		if(user.getIsadmin()==false)
 			{
-				model.addObject("user", user);
+				model.addObject(user);
+				model.addObject(vms);
 				model.setViewName("user");
 				return model;
 			}
-		else if (this.user.getEmail()==user.getEmail() && (this.user.getIsadmin())) {
-			model.addObject("user", user);
+		else  {
+			model.addObject(user);
 			model.setViewName("admin");
-			return model ;
+			return model;
 			}
 		}
 		
 		model.setViewName("sigin");	
-		return model ;
+		return model;
 	}
 	
 	//Create VM: Set default state=0 i.e. stop

@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Entity
-@Table(name = "vmdetails", catalog = "cmpe275", uniqueConstraints = @UniqueConstraint(columnNames = {"vmname"}))
+@Table(name = "VMDetails", catalog = "cmpe275", uniqueConstraints = @UniqueConstraint(columnNames = {"vmname"}))
 public class VMDetails {
 
 	private User user;

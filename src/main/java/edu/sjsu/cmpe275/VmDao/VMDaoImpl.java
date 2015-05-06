@@ -63,6 +63,7 @@ public class VMDaoImpl implements VmDao{
 		if (user.size() > 0) {
 			for(int i = 0; i < user.size(); i++){
 				vms[i] = user.get(i);
+				//System.out.println(vms[i].getVmname());
 			}
 			return vms;
 		} else {
