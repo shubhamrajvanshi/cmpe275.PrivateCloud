@@ -1,3 +1,4 @@
+
 package edu.sjsu.cmpe275.VmModel;
 
 import java.util.HashSet;
@@ -10,15 +11,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 
 
-@SuppressWarnings("unused")
+
 @Component 
 @Entity
-@Table(name = "user", catalog = "cmpe275")
+@Table(name = "User", catalog = "cmpe275")
 public class User {
 	
 	String email;

@@ -19,7 +19,7 @@ import edu.sjsu.cmpe275.VmModel.VMDetails;
 @SuppressWarnings("unused")
 @Repository
 @Transactional
-@EnableTransactionManagement
+//@EnableTransactionManagement
 public class VMDaoImpl implements VmDao{
 
 	//@Autowired 
@@ -35,18 +35,18 @@ public class VMDaoImpl implements VmDao{
 //	@Transactional
 	public User getUser(String email){
 		
-//		List<User> user = new ArrayList<User>();
-//
-//		user = this.sessionFactory.getCurrentSession().createQuery("from User where email=?").setParameter(0, email)
-//				.list();
-//
-//		if (user.size() > 0) {
-//			return user.get(0);
-//		} else {
-//			return null;
-//		}
+		List<User> user = new ArrayList<User>();
+
+		user = this.sessionFactory.getCurrentSession().createQuery("from User where email=?").setParameter(0, email)
+				.list();
+
+		if (user.size() > 0) {
+			return user.get(0);
+		} else {
+			return null;
+		}
 	//	System.out.println(sessionFactory.getCurrentSession().isConnected());
-		 return  (User) this.sessionFactory.getCurrentSession().load(User.class, new String(email));
+	//	 return  (User) this.sessionFactory.getCurrentSession().load(User.class, new String(email));
 		
 	}
 	

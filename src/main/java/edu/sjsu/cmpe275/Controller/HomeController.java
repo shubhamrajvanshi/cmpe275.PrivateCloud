@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import edu.sjsu.cmpe275.VmDao.VmDao;
 import edu.sjsu.cmpe275.VmModel.User;
@@ -43,7 +44,7 @@ public class HomeController {
 	//This page will contain signin, signup options
 	//Come here after sign out 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	@ResponseBody
+//	@ResponseBody
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
@@ -61,11 +62,11 @@ public class HomeController {
 	//	vmServiceImpl.powerOn("CentOS_1024MB_2cpu_tmpl1");
 	//	vmServiceImpl.powerOFF("CentOS_1024MB_2cpu_tmpl1");
 	//	vmServiceImpl.addHost("130.65.133.122", "root", "12!@qwQW");
-		user=vMDaoImpl.getUser("p@p.com");
-		System.out.println("got  " +user.getFirstname()+" "+ user.getIsadmin());
+	//	user=vMDaoImpl.getUser("s@s.com");
+	//	System.out.println("got  " +user.getFirstname()+" "+ user.getIsadmin());
 	//	user = new User("pri@sjsu.edu", "Pri", "Karpe", "ppp", false);
 //		return user;
-		return "home";
+		return "index";
 	}
 	
 	
@@ -82,25 +83,43 @@ public class HomeController {
 		return user;
 	}
 	
-	@RequestMapping(value = "/user/{email}", method = RequestMethod.GET)
-	@ResponseBody
-	public String test(@PathVariable String email){
-		System.out.println(email);
-		return email;
+	
+	@RequestMapping(value = "/signin", method = RequestMethod.GET)
+	public String sigin(){
+		System.out.println("inside signin get");
+		return "signin";
 	}
 	
 	//Sign-in: Retrives user details using getUser(email)
-	@RequestMapping(value = "/user/{email}", method = RequestMethod.POST)
-	public User signin(@PathVariable String email,
+	@RequestMapping(value = "/signin", method = RequestMethod.POST)
+	public ModelAndView signin(@RequestParam(value="email") String email,
 						@RequestParam(value="password") String password) {
 		logger.info("Sign-in : ", email);
 		
 		//Implement user session to login a user
-		
 		user = vMDaoImpl.getUser(email);
-		VMDetails vms[] = vMDaoImpl.getVMDetails(email);
+		ModelAndView model = new ModelAndView();
+//		VMDetails vms[] = vMDaoImpl.getVMDetails(email);
+		if(email==user.getEmail() && password==user.getPassword()){
+			
 		
-		return user;
+		if(email==user.getEmail() && (!user.getIsadmin()))
+			{
+			//	model.addObject("as", "asdas");
+				
+				model.setViewName("user");
+				return model;
+			}
+		else if (email==user.getEmail() && (user.getIsadmin())) {
+		//	model.addObject("as", "asdas");
+			
+			model.setViewName("admin");
+			return model ;
+			}
+		}
+		
+		model.setViewName("sigin");	
+		return model ;
 	}
 	
 	//Create VM: Set default state=0 i.e. stop

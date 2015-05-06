@@ -36,16 +36,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"><font color=blue>GET VIRTUAL</font></a>
+                <a class="navbar-brand" href="index.jsp"><font color=blue>GET VIRTUAL</font></a>
             </div>  
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="about.html">About</a>
+                        <a href="about">About</a>
                     </li>
                     <li>
-                        <a href="services.html">Services</a>
+                        <a href="services">Services</a>
                     </li>
                     
                 </ul>
@@ -112,7 +112,7 @@
                     </div>
                     <div class="panel-body">
                         <p><B>START WITH GET VIRTUAL</B></p>
-                        <a href="signup.html" class="btn btn-default"><b><font color=blue>SIGN UP</font></b></a>
+                        <a href="signup.jsp" class="btn btn-default"><b><font color=blue>SIGN UP</font></b></a>
                     </div>
                 </div>
             </div>
@@ -123,7 +123,7 @@
                     </div>
                     <div class="panel-body">
                         <p><b>ALREADY AN USER? </b></p>
-                        <a href="signin.html" class="btn btn-default"><b><font color=blue>SIGN IN</font></b></a>
+                        <a href="signin" class="btn btn-default"><b><font color=blue>SIGN IN</font></b></a>
                     </div>
                 </div>
             </div>
@@ -143,10 +143,10 @@
     <!-- /.container -->
 
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    <script src="resources/js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="resources/js/bootstrap.min.js"></script>
 
     <!-- Script to Activate the Carousel -->
     <script>

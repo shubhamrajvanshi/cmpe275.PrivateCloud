@@ -59,11 +59,11 @@ public class VmServiceImpl implements VmService{
 	private static Logger LOGGER = LoggerFactory.getLogger("VmServiceImpl");
 	
 	@SuppressWarnings("static-access")
-	@Autowired
-	public VmServiceImpl(ServiceInstance serviceInstance)
-	{
-		this.serviceInstance = serviceInstance ;
-	}
+	//@Autowired
+//	public VmServiceImpl(ServiceInstance serviceInstance)
+//	{
+//		this.serviceInstance = serviceInstance ;
+//	}
 	
 	/**
 	 * @return the serviceInstance
