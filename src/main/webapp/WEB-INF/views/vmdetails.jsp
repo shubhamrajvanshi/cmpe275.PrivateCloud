@@ -1,4 +1,4 @@
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>CMPE275 TEAM7 SIGNIN</title>
+    <title>CMPE275 TEAM7 VMDETAILS</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -19,14 +19,16 @@
 
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <style>
+
+ <style>
         body{
             font-family:verdana;
             }
     </style>
+
 </head>
 
-<body background="a.jpg">
+<body  background="a.jpg">
 
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -34,23 +36,22 @@
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">TOGGLE</span>
+                    <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index"><font color=blue>GET VIRTUAL</font></a>
-            </div>  
+                <a class="navbar-brand" href="index.jsp"><font color=blue>GET VIRTUAL</font></a>
+            </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="about">About</a>
+                        <a href="about.jsp">About</a>
                     </li>
                     <li>
-                        <a href="services">Services</a>
+                        <a href="services.jsp">Services</a>
                     </li>
-                    
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -58,50 +59,69 @@
         <!-- /.container -->
     </nav>
 
-        
-    </header>
-
-
     <!-- Page Content -->
     <div class="container">
 
-        <!-- Marketing Icons Section -->
+        <!-- Page Heading/Breadcrumbs -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">
-                   <B><font color=blue>SIGN IN HERE!</font></B> 
-                </h1>
+                <h1 class="page-header">DETAILS OF VIRTUAL MACHINE:</h1>
+                <ol class="breadcrumb">
+                    <li><a href="index.jsp">Home</a>
+                    </li>
+                </ol>
+            </div>
         </div>
-        <div class="row">
-            
-            <form:form action="signin" method="POST" modelAttribute="user">
-                   
-                    Email:<br>
-                  
-                   <form:input path="email" />
-                    <br>
-                    Password:<br>
-                    
-                    <form:password path="password" />
-                    <br>
-                    
-                <br>
-                <br>
-                <font color=blue>
-                <input id="submit" type="submit" value="Sign In" onclick="send()">
-                </font>
-            </form:form>
-            <script>
-            function send(){
-               var email=document.getElementById('email').value;
-               request.setAttribute("email", document.getElementById('email').value);
-               //alert(document.getElementById('email').value);
-            }
 
-            </script>
-             
-       </div> 
-<hr>
+
+        <!-- /.row -->
+
+        <div class="row">
+            <!-- Blog Entries Column -->
+            <div class="col-md-12">
+
+            <h4>Virtual machines:</h4>
+                <table style="width:100%">
+                    <tr>
+                    <td><b>MACHINE NAME</b></td>
+                    <td><b>IP ADDRESS</b></td>
+                    <td><b>MEMORY</b></td>
+                    <td><b>CPU USAGE</b></td>
+                    <td><b>START/STOP</b></td>
+                    <td><b>DELETE</b></td>
+                    </tr>
+                    <tr>
+                    <td>vm1</a></td>
+                    <td><b>IP ADDRESS</b></td>
+                    <td><b>MEMORY</b></td>
+                    <td><b>CPU USAGE</b></td>
+                    <td><b><input id="startstop" type="submit" value="START/STOP" onclick=""></b></td>
+                    <td><b><input id="delete" type="button" value="DELETE" onclick=""></b></td>
+                
+                    </tr>
+                
+                </table>
+            </div>
+
+        </div>
+                
+                <hr>
+                <!--row-->
+                
+                    
+                        <div class="col-md-6">
+                            <form action="vmdetails.jsp">
+                        <font color="blue"><a href="createvm.jsp">CREATE A VIRTUAL MACHINE</a></font>
+                        </form>
+                        </div>
+                    <div class="row">
+                    <div class="col-md-6">
+                    </div>
+                </div>     
+                
+
+        <hr>
+
         <!-- Footer -->
         <footer>
             <div class="row">
@@ -110,8 +130,8 @@
                 </div>
             </div>
         </footer>
-
     </div>
+ 
     <!-- /.container -->
 
     <!-- jQuery -->
@@ -120,14 +140,6 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
 
-    <!-- Script to Activate the Carousel -->
-    <script>
-    $('.carousel').carousel({
-        interval: 5000 //changes the speed
-    })
-    </script>
-
 </body>
 
 </html>
-

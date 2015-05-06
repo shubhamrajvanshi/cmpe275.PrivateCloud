@@ -20,10 +20,14 @@
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-    
+     <style>
+        body{
+            font-family:verdana;
+            }
+    </style>
 </head>
 
-<body>
+<body background="a.jpg">
 
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -36,7 +40,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.jsp"><font color=blue>GET VIRTUAL</font></a>
+                <a class="navbar-brand" href="index"><font color=blue>GET VIRTUAL</font></a>
             </div>  
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -67,21 +71,21 @@
         <!-- Wrapper for slides -->
         <div class="carousel-inner">
             <div class="item active">
-                <div class="fill" style="background-image:url('');"></div>
+                <div class="fill" style="background-image:url('D:\image.jpg');"></div>
                 <div class="carousel-caption">
-                    <h4>CREATE/DELETE A VIRTUAL MACHINE</h4>
+                    <h4><font color="red">CREATE/DELETE A VIRTUAL MACHINE</font></h4>
                 </div>
             </div>
             <div class="item">
-                <div class="fill" style="background-image:url('');"></div>
+                <div class="fill" style="background-image:url('D:\image1.jpg');"></div>
                 <div class="carousel-caption">
-                    <h4>USE CLOUD TECHNOLOGY</h4>
+                    <h4><font color="red">USE CLOUD TECHNOLOGY</font></h4>
                 </div>
             </div>
             <div class="item">
-                <div class="fill" style="background-image:url('');"></div>
+                <div class="fill" style="background-image:url('D:\image.jpg');"></div>
                 <div class="carousel-caption">
-                    <h4>ADD A HOST</h4>
+                    <h4><font color="red">ADD A HOST</font></h4>
                 </div>
             </div>
         </div>
@@ -112,7 +116,7 @@
                     </div>
                     <div class="panel-body">
                         <p><B>START WITH GET VIRTUAL</B></p>
-                        <a href="signup.jsp" class="btn btn-default"><b><font color=blue>SIGN UP</font></b></a>
+                        <a href="signup" class="btn btn-default"><b><font color=blue>SIGN UP</font></b></a>
                     </div>
                 </div>
             </div>
@@ -128,7 +132,7 @@
                 </div>
             </div>
         </div>
-       
+       <hr>
 
         <!-- Footer -->
         <footer>
@@ -143,10 +147,10 @@
     <!-- /.container -->
 
     <!-- jQuery -->
-    <script src="resources/js/jquery.js"></script>
+    <script src="js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="resources/js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 
     <!-- Script to Activate the Carousel -->
     <script>

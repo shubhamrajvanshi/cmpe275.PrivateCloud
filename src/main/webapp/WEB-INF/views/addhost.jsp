@@ -1,4 +1,4 @@
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>CMPE275 TEAM7 SIGNIN</title>
+    <title>CMPE275 TEAM7 ADDHOST</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -26,12 +26,13 @@
     </style>
 </head>
 
-<body background="a.jpg">
-
+<body  background="a.jpg">
+    
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
+            
+                       <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">TOGGLE</span>
@@ -39,16 +40,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index"><font color=blue>GET VIRTUAL</font></a>
+                <a class="navbar-brand" href="index.jsp"><font color=blue>GET VIRTUAL</font></a>
             </div>  
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="about">About</a>
+                        <a href="about.jsp">About</a>
                     </li>
                     <li>
-                        <a href="services">Services</a>
+                        <a href="services.jsp">Services</a>
                     </li>
                     
                 </ul>
@@ -65,40 +66,29 @@
     <!-- Page Content -->
     <div class="container">
 
-        <!-- Marketing Icons Section -->
         <div class="row">
+            <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">
-                   <B><font color=blue>SIGN IN HERE!</font></B> 
-                </h1>
+                <h1 class="page-header">ADD A HOST</h1>
+                <ol class="breadcrumb">
+                    <li><a href="index.jsp">Home</a>
+                    </li>
+                </ol>
+            </div>
         </div>
-        <div class="row">
             
-            <form:form action="signin" method="POST" modelAttribute="user">
+            <form:form method="POST" action="" modelAttribute="">
+
+                Enter HOSTNAME:&nbsp<form:input path="hostname" id="hostname" /><br>
+                Enter USERNAME for the host:&nbsp<form:input path="username" id="username" /><br>
+                Enter PASSWORD:&nbsp<form:password path="password" id="password" /><br>
                    
-                    Email:<br>
-                  
-                   <form:input path="email" />
-                    <br>
-                    Password:<br>
-                    
-                    <form:password path="password" />
-                    <br>
-                    
-                <br>
+                   
                 <br>
                 <font color=blue>
-                <input id="submit" type="submit" value="Sign In" onclick="send()">
+                <input id="submit" type="submit" value="ADD HOST" onclick="alert('Login Credentials:\nusername:administrator\npassword:12!@qwQW')" />
                 </font>
-            </form:form>
-            <script>
-            function send(){
-               var email=document.getElementById('email').value;
-               request.setAttribute("email", document.getElementById('email').value);
-               //alert(document.getElementById('email').value);
-            }
-
-            </script>
+                </form:form>
              
        </div> 
 <hr>

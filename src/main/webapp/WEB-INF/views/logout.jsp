@@ -1,4 +1,4 @@
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>CMPE275 TEAM7 SIGNIN</title>
+    <title>CMPE275 TEAM7 WELCOME USER</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -24,9 +24,10 @@
             font-family:verdana;
             }
     </style>
+    
 </head>
 
-<body background="a.jpg">
+<body  background="a.jpg">
 
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -34,75 +35,52 @@
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">TOGGLE</span>
+                    <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index"><font color=blue>GET VIRTUAL</font></a>
-            </div>  
+                <a class="navbar-brand" href="index.jsp"><font color=blue>GET VIRTUAL</font></a>
+            </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="about">About</a>
+                        <a href="index.jsp">Home</a>
                     </li>
-                    <li>
-                        <a href="services">Services</a>
-                    </li>
-                    
-                </ul>
+                   
+                    </ul>
+        
             </div>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->
     </nav>
 
-        
-    </header>
-
-
     <!-- Page Content -->
     <div class="container">
 
-        <!-- Marketing Icons Section -->
+        <!-- Page Heading/Breadcrumbs -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">
-                   <B><font color=blue>SIGN IN HERE!</font></B> 
+                <h1 class="page-header"> YOU HAVE SUCCESSFULLY LOGGED OUT OF GET VIRTUAL.
+                    
                 </h1>
+              
+            </div>
         </div>
-        <div class="row">
-            
-            <form:form action="signin" method="POST" modelAttribute="user">
-                   
-                    Email:<br>
-                  
-                   <form:input path="email" />
-                    <br>
-                    Password:<br>
-                    
-                    <form:password path="password" />
-                    <br>
-                    
-                <br>
-                <br>
-                <font color=blue>
-                <input id="submit" type="submit" value="Sign In" onclick="send()">
-                </font>
-            </form:form>
-            <script>
-            function send(){
-               var email=document.getElementById('email').value;
-               request.setAttribute("email", document.getElementById('email').value);
-               //alert(document.getElementById('email').value);
-            }
+        <!-- /.row -->
 
-            </script>
-             
-       </div> 
+         <div class="row">
+            <div class="col-lg-12">
+                <a href="signin.jsp"><font color="black">Click Here to Sign In Again</a></font>
+            </div>
+        </div>
+        <!-- /.row -->
+   
 <hr>
-        <!-- Footer -->
+   
+<!-- Footer -->
         <footer>
             <div class="row">
                 <div class="col-lg-12">
@@ -110,22 +88,18 @@
                 </div>
             </div>
         </footer>
-
-    </div>
     <!-- /.container -->
-
+ </div>
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
 
-    <!-- Script to Activate the Carousel -->
-    <script>
-    $('.carousel').carousel({
-        interval: 5000 //changes the speed
-    })
-    </script>
+    <!-- Contact Form JavaScript -->
+    <!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
+    <script src="js/jqBootstrapValidation.js"></script>
+    <script src="js/contact_me.js"></script>
 
 </body>
 

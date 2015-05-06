@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -92,27 +93,24 @@ public class HomeController {
 	
 	//Sign-in: Retrives user details using getUser(email)
 	@RequestMapping(value = "/signin", method = RequestMethod.POST)
-	public ModelAndView signin(@RequestParam(value="email") String email,
-						@RequestParam(value="password") String password) {
-		logger.info("Sign-in : ", email);
+	public ModelAndView signin(@ModelAttribute User user) {
+		logger.info("Sign-in : ", user.getEmail());
 		
 		//Implement user session to login a user
-		user = vMDaoImpl.getUser(email);
+		this.user = vMDaoImpl.getUser(user.getEmail());
 		ModelAndView model = new ModelAndView();
 //		VMDetails vms[] = vMDaoImpl.getVMDetails(email);
-		if(email==user.getEmail() && password==user.getPassword()){
+		if(this.user.getEmail()==user.getEmail() && this.user.getPassword()==user.getPassword()){
 			
 		
-		if(email==user.getEmail() && (!user.getIsadmin()))
+		if(this.user.getEmail()==user.getEmail() && (!this.user.getIsadmin()))
 			{
-			//	model.addObject("as", "asdas");
-				
+				model.addObject("user", user);
 				model.setViewName("user");
 				return model;
 			}
-		else if (email==user.getEmail() && (user.getIsadmin())) {
-		//	model.addObject("as", "asdas");
-			
+		else if (this.user.getEmail()==user.getEmail() && (this.user.getIsadmin())) {
+			model.addObject("user", user);
 			model.setViewName("admin");
 			return model ;
 			}

@@ -1,4 +1,5 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -9,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>CMPE275 TEAM7 SIGNIN</title>
+    <title>CMPE275 TEAM7 SIGNUP</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -26,7 +27,7 @@
     </style>
 </head>
 
-<body background="a.jpg">
+<body  background="a.jpg">
 
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -39,16 +40,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index"><font color=blue>GET VIRTUAL</font></a>
+                <a class="navbar-brand" href="index.jsp"><font color=blue>GET VIRTUAL</font></a>
             </div>  
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="about">About</a>
+                        <a href="about.jsp">About</a>
                     </li>
                     <li>
-                        <a href="services">Services</a>
+                        <a href="services.jsp">Services</a>
                     </li>
                     
                 </ul>
@@ -61,7 +62,6 @@
         
     </header>
 
-
     <!-- Page Content -->
     <div class="container">
 
@@ -69,39 +69,33 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                   <B><font color=blue>SIGN IN HERE!</font></B> 
+                   <B><font color=blue>SIGN UP HERE!</font></B> 
                 </h1>
         </div>
-        <div class="row">
+            <form:form action="user/" method="POST" modelAttribute="user">
             
-            <form:form action="signin" method="POST" modelAttribute="user">
-                   
+            
+                    First name:<br>
+                    <form:input path="firstname" id="firstname"/>
+                    <br>    
+                    Last name:<br>
+                     <form:input path="lastname" id="lastname" />
+                    <br>
                     Email:<br>
-                  
-                   <form:input path="email" />
+                    <form:input path="email" id="email" />
                     <br>
                     Password:<br>
-                    
-                    <form:password path="password" />
+                     <form:password path="password" id="password" />
                     <br>
-                    
+                    </br>
                 <br>
-                <br>
-                <font color=blue>
-                <input id="submit" type="submit" value="Sign In" onclick="send()">
-                </font>
+                    <font color=blue>
+                        <input id="submit" type="submit" value="Sign Up">
+                    </font>
             </form:form>
-            <script>
-            function send(){
-               var email=document.getElementById('email').value;
-               request.setAttribute("email", document.getElementById('email').value);
-               //alert(document.getElementById('email').value);
-            }
-
-            </script>
              
-       </div> 
-<hr>
+       <hr>
+
         <!-- Footer -->
         <footer>
             <div class="row">
