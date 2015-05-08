@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="en">
 
 <head>
@@ -12,13 +12,13 @@
     <title>CMPE275 TEAM7 ABOUT</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/modern-business.css" rel="stylesheet">
+    <link href="<c:url value="/resources/css/modern-business.css" />" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="<c:url value="/resources/font-awesome/css/font-awesome.min.css" />" rel="stylesheet" type="text/css">
 
  <style>
         body{
@@ -40,16 +40,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.jsp"><font color=blue>GET VIRTUAL</a></font>
+                <a class="navbar-brand" href="index"><font color=blue>GET VIRTUAL</a></font>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="active">
-                        <a href="about.jsp">About</a>
+                        <a href="#" >About</a>
                     </li>
                     <li>
-                        <a href="services.jsp">Services</a>
+                        <a href="services">Services</a>
                     </li>
                     
                 </ul>
@@ -68,8 +68,9 @@
                 <h1 class="page-header">
                 </h1>
                 <ol class="breadcrumb">
-                    <li><a href="index.jsp">Home</a>
+                    <li><a href="index">Home</a>
                     </li>
+                    
                     <li class="active">About</li>
                 </ol>
             </div>
@@ -132,10 +133,11 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 text-center">
-                <div class="thumbnail">
+            
+            <div class="col-md-4 text-center" >
+                <div class="thumbnail" align="center">
                     <img class="img-responsive" src="D:\shubham.jpg" alt="">
-                    <div class="caption">
+                    <div class="caption"  >
                         <h3>Shubham Rajvanshi<br></h3>
                            <h5> SJSU ID: 009428744<br>
                         <a href="mailto:shubham.rajvanshi@sjsu.edu">shubham.rajvanshi@sjsu.edu</a><br>
@@ -160,10 +162,10 @@
     <!-- /.container -->
 
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    <script src="<c:url value="resources/js/jquery.js" />" ></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="<c:url value="/resources/js/bootstrap.min.js" />" ></script>
 
 </body>
 

@@ -72,9 +72,33 @@ public class HomeController {
 	//	System.out.println("got  " +user.getFirstname()+" "+ user.getIsadmin());
 	//	user = new User("pri@sjsu.edu", "Pri", "Karpe", "ppp", false);
 //		return user;
-		return "index";
+		return "vmdetails";
 	}
 	
+	@RequestMapping(value = "/about", method = RequestMethod.GET)
+	public String about() {
+		
+		return "about";
+	}
+	@RequestMapping(value = "/services", method = RequestMethod.GET)
+	public String services() {
+		
+		return "services";
+	}
+	
+	@RequestMapping(value = "/signin", method = RequestMethod.GET)
+	public String sigin(){
+		System.out.println("inside signin get");
+	
+		return "signin";
+	}
+	
+	@RequestMapping(value = "/signup", method = RequestMethod.GET)
+	public String signup(){
+		System.out.println("inside signup get");
+	
+		return "signup";
+	}
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout() {
@@ -101,12 +125,7 @@ public class HomeController {
 	}
 	
 	
-	@RequestMapping(value = "/signin", method = RequestMethod.GET)
-	public String sigin(){
-		System.out.println("inside signin get");
 	
-		return "signin";
-	}
 	
 	//Sign-in: Retrives user details using getUser(email)
 	@RequestMapping(value = "/signin", method = RequestMethod.POST)

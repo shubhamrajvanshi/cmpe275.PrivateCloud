@@ -15,13 +15,20 @@
     <title>CMPE275 TEAM7 USERPAGE </title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/modern-business.css" rel="stylesheet">
+    <link href="<c:url value="/resources/css/modern-business.css" />" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="<c:url value="/resources/font-awesome/css/font-awesome.min.css" />" rel="stylesheet" type="text/css">
+    
+    <!-- jQuery -->
+    <script src="<c:url value="resources/js/jquery.js" />" ></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="<c:url value="/resources/js/bootstrap.min.js" />" ></script>
+    
  <style>
         body{
             font-family:verdana;
@@ -145,11 +152,7 @@
  
     <!-- /.container -->
 
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    
 
 </body>
 

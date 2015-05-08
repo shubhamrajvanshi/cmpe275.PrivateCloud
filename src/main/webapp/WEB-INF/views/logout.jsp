@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="en">
 
 <head>
@@ -12,13 +12,14 @@
     <title>CMPE275 TEAM7 WELCOME USER</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/modern-business.css" rel="stylesheet">
+    <link href="<c:url value="/resources/css/modern-business.css" />" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="<c:url value="/resources/font-awesome/css/font-awesome.min.css" />" rel="stylesheet" type="text/css">    
+    
     <style>
         body{
             font-family:verdana;
@@ -91,15 +92,15 @@
     <!-- /.container -->
  </div>
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    <script src="<c:url value="resources/js/jquery.js" />" ></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="<c:url value="/resources/js/bootstrap.min.js" />" ></script>
 
     <!-- Contact Form JavaScript -->
     <!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
-    <script src="js/jqBootstrapValidation.js"></script>
-    <script src="js/contact_me.js"></script>
+    <script src="<c:url value="/resources/js/jqBootstrapValidation.js" />"></script>
+    <script src="<c:url value="/resources/js/contact_me.js"/>"></script>
 
 </body>
 

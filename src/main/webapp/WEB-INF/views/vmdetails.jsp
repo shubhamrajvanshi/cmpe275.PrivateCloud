@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="en">
 
 <head>
@@ -12,13 +13,19 @@
     <title>CMPE275 TEAM7 VMDETAILS</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/modern-business.css" rel="stylesheet">
+    <link href="<c:url value="/resources/css/modern-business.css" />" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="<c:url value="/resources/font-awesome/css/font-awesome.min.css" />" rel="stylesheet" type="text/css">
+    
+    <!-- jQuery -->
+    <script src="<c:url value="resources/js/jquery.js" />" ></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="<c:url value="/resources/js/bootstrap.min.js" />" ></script>
 
  <style>
         body{
@@ -41,16 +48,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.jsp"><font color=blue>GET VIRTUAL</font></a>
+                <a class="navbar-brand" href="index"><font color=blue>GET VIRTUAL</font></a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="about.jsp">About</a>
+                        <a href="about">About</a>
                     </li>
                     <li>
-                        <a href="services.jsp">Services</a>
+                        <a href="services">Services</a>
                     </li>
                 </ul>
             </div>
@@ -67,7 +74,7 @@
             <div class="col-lg-12">
                 <h1 class="page-header">DETAILS OF VIRTUAL MACHINE:</h1>
                 <ol class="breadcrumb">
-                    <li><a href="index.jsp">Home</a>
+                    <li><a href="index">Home</a>
                     </li>
                 </ol>
             </div>
@@ -110,8 +117,8 @@
                 
                     
                         <div class="col-md-6">
-                            <form action="vmdetails.jsp">
-                        <font color="blue"><a href="createvm.jsp">CREATE A VIRTUAL MACHINE</a></font>
+                            <form action="vmdetails">
+                        <font color="blue"><a href="createvm">CREATE A VIRTUAL MACHINE</a></font>
                         </form>
                         </div>
                     <div class="row">
