@@ -95,13 +95,16 @@
             <!-- Blog Entries Column -->
             <div class="col-md-9">
 
-            <h4>Virtual machines:</h4>
+            <h4>LIST OF VIRTUAL MACHINES</h4>
                 <table style="width:100%">
-                    <tr>
-                    <td><b>Machine:"${vms}"</b></td>
-                    </tr>
-                    
-                </table> 
+                <tr><td>VM Name</td>
+                </tr>
+                <c:forEach items="${vms}" var="vm">
+                 <tr>
+                     <td><a href="vmdetails/${vm.user.email}/${vm.getVmname()}">${vm.getVmname()}</a></td>
+                 </tr>
+                 </c:forEach>               
+                </table>
             </div>
 
             <!-- Blog Sidebar Widgets Column -->

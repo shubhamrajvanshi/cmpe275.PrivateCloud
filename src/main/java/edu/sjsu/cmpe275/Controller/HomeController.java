@@ -11,7 +11,6 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.MailException;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +26,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import edu.sjsu.cmpe275.VmDao.VmDao;
 import edu.sjsu.cmpe275.VmModel.User;
-
 import edu.sjsu.cmpe275.VmModel.VMDetails;
-//import edu.sjsu.cmpe275.VmService.VmService;
-
-
+import edu.sjsu.cmpe275.VmService.VmService;
 
 @Controller
 public class HomeController {
@@ -64,7 +60,7 @@ public class HomeController {
 		
 		String formattedDate = dateFormat.format(date);
 		
-		model.addAttribute("serverTime", formattedDate );
+	//	model.addAttribute("serverTime", formattedDate );
 		//System.out.println(uRL.toString());
 		
 	//	vmServiceImpl.createVM(2,"vm1");
@@ -85,6 +81,7 @@ public class HomeController {
 		
 		return "about";
 	}
+	
 	@RequestMapping(value = "/services", method = RequestMethod.GET)
 	public String services() {
 		
@@ -94,8 +91,7 @@ public class HomeController {
 	@RequestMapping(value = "/signin", method = RequestMethod.GET)
 	public String sigin(@ModelAttribute User user){
 		System.out.println("inside signin get");
-	
-		return "signin";
+			return "signin";
 	}
 	
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
@@ -140,12 +136,10 @@ public class HomeController {
 			return new ModelAndView("signup");
 	}
 	
-	
-	
-	
+		
 	//Sign-in: Retrives user details using getUser(email)
 	@RequestMapping(value = "/signin", method = RequestMethod.POST)
-	public ModelAndView signin(@ModelAttribute(value="user") User user) {
+	public String signin(@ModelAttribute(value="user") User user) {
 		logger.info("Sign-in : ", user.getEmail());
 		
 		//Implement user session to login a user
@@ -153,37 +147,71 @@ public class HomeController {
 		System.out.println(user.getFirstname()+ user.getLastname()+ "entered password " + user.getPassword() );
 		System.out.println("value from database"+ this.user.getEmail()+ " "+ this.user.getPassword());
 		ModelAndView model = new ModelAndView();
-		//VMDetails vms[] = vMDaoImpl.getVMDetails(user.getEmail());
-		/*List <String> list = new ArrayList<String>(5);
-		Set <VMDetails> u = new HashSet<VMDetails>();
-		for(int i = 0; i < vms.length-1; i++){
-			//u.add(vms[i]);
-			list.add(vms[i].getVmname());
-			System.out.println(vms[i].getVmname());
-		}
-		System.out.println("List = " + list.toString());
-		//user.setVmdetails(u);*/
 		
 		if(this.user.getEmail().equals(user.getEmail()) && this.user.getPassword().equals(user.getPassword())){
-			
-		
-		if(this.user.getIsadmin()==false)
+		 if(this.user.getIsadmin()==false)
 			{
-			//	model.addObject(user);
-			//	model.addObject(vms);
+			//VMDetails vms[] = vMDaoImpl.getVMDetails(user.getEmail());
+				/*List <String> list = new ArrayList<String>(5);
+				Set <VMDetails> u = new HashSet<VMDetails>();
+				for(int i = 0; i < vms.length-1; i++){
+					//u.add(vms[i]);
+					list.add(vms[i].getVmname());
+					System.out.println(vms[i].getVmname());
+				}
+				System.out.println("List = " + list.toString());
+				//user.setVmdetails(u);*/
 				model.setViewName("user");
-				return model;
+				return "redirect:/user";
 			}
-		else  {
-		//	model.addObject(user);
+		 else  {
+		
 			model.setViewName("admin");
-			return model;
+			return "redirect:/admin";
 			}
 		}
 		
-		model.setViewName("sigin");	
+		model.setViewName("signin");	
+		return "signin";
+	}
+	
+	
+	@RequestMapping(value="/admin" , method=RequestMethod.GET)
+	public ModelAndView admin(){
+		
+		System.out.println("inside admin get");
+		List<VMDetails> vms = vMDaoImpl.getAllVMs();
+		System.out.println(vms.size());
+		System.out.println(vms.get(0).getVmname());
+		ModelAndView model = new ModelAndView();
+		model.addObject(this.user);
+		
+		model.addObject("vms",vms);
+		model.setViewName("admin");
 		return model;
 	}
+	
+	@RequestMapping(value="/admin/host", method=RequestMethod.GET)
+	public String host(){
+		
+		return "addhost";
+	}
+	
+	@RequestMapping(value="/user" , method=RequestMethod.GET)
+	public ModelAndView user(){
+		
+		System.out.println("inside user get");
+		List<VMDetails> vms = vMDaoImpl.getVMDetails(this.user.getEmail());
+		System.out.println("Number of VMs for "+ this.user.getEmail() + ": " + vms.size());
+		
+		ModelAndView model = new ModelAndView();
+		model.addObject(this.user);
+		
+		model.addObject("vms",vms);
+		model.setViewName("user");
+		return model;
+	}
+	 
 	
 	//Create VM: Set default state=0 i.e. stop
 	//The templateid=radio button value
@@ -202,34 +230,45 @@ public class HomeController {
 	}
 	
 	//When user clicks on particular VM it comes here
-	@RequestMapping(value = "/vm/{email}/{vmname}", method = RequestMethod.GET)
-	public VMDetails viewvm(@PathVariable String email,
+	@RequestMapping(value = "/vmdetails/{email}/{vmname}", method = RequestMethod.GET)
+	public ModelAndView viewvm(@PathVariable String email,
 						@PathVariable String vmname) {
 		logger.info("Showing VM ", vmname);
 		
-		if(user != null){
+		//if(user != null){
 			vMDetails = vMDaoImpl.getVMDetails(email, vmname);
-		}
-		return vMDetails;
+			System.out.println("inside vmdetails - user- vms : ");
+		//}
+			ModelAndView model = new ModelAndView();
+			//model.addObject(this.user);
+			
+			model.addObject("vms",vMDetails);
+			model.setViewName("vmdetails");
+			return model;
 	}
 
 	//Change the status of the VM
-	@RequestMapping(value = "/vm/{vmname}/{status}", method = RequestMethod.PUT)
-	public VMDetails changestate(@PathVariable String vmname,
+	@RequestMapping(value = "/vmdetails/{email}/vm/{vmname}/{status}", method = RequestMethod.GET)
+	public String changeState(@PathVariable String email,
+						@PathVariable String vmname,
 						@PathVariable String status) {
 		logger.info("Powering Off vm ", vmname);
-		
+		System.out.println("inside changeState");
 		if(vMDetails != null){
-			if(status.equals("PowerOff")){
+			//if 1: Change state to poweroff
+			if(status.equals("1")){
 	//			vmServiceImpl.powerOFF(vmname);
 				vMDetails.setVmstate(0);
 			}
-			else if(status.equals("PowerOn")){
+			else if(status.equals("0")){
 	//			vmServiceImpl.powerOn(vmname);
 				vMDetails.setVmstate(1);
 			}
+			vMDaoImpl.changeVmState(vMDetails);
 		}
-		return vMDetails;
+		
+		
+		return "redirect:/vmdetails/" + email + "/" + vmname;
 	}
 	
 	

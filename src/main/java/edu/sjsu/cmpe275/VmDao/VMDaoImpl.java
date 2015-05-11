@@ -52,21 +52,19 @@ public class VMDaoImpl implements VmDao{
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public VMDetails[] getVMDetails(String email){
+	public List<VMDetails> getVMDetails(String email){
 		
 		List<VMDetails> user = new ArrayList<VMDetails>();
-		VMDetails[] vms = new VMDetails[5];
-
 		user = this.sessionFactory.getCurrentSession().createQuery("from VMDetails where email=?").setParameter(0, email)
 				.list();
-
+		VMDetails[] vms = new VMDetails[user.size()];
 		if (user.size() > 0) {
 			for(int i = 0; i < user.size(); i++){
 				vms[i] = user.get(i);
 				
 				//System.out.println(vms[i].getVmname());
 			}
-			return vms;
+			return user;
 		} else {
 			return null;
 		}
@@ -76,12 +74,13 @@ public class VMDaoImpl implements VmDao{
 	@Override
 	public VMDetails getVMDetails(String email, String vmname){
 		
-		List<VMDetails> user = new ArrayList<VMDetails>();
-
-		user = ((Query) this.sessionFactory.getCurrentSession().createQuery("from VMDetails where email=? AND vmname=?").setParameter(0, email).list()) .setParameter(1, vmname).list();
-
-		if (user.size() > 0) {
-			return user.get(0);
+		List<VMDetails> vms = new ArrayList<VMDetails>();
+		System.out.println("inside hibernet- getVMDetails() get");
+		vms = this.sessionFactory.getCurrentSession().createQuery("from VMDetails where vmname=?").setParameter(0, vmname)
+				.list();
+		
+		if (vms.size() > 0) {
+			return vms.get(0);
 		} else {
 			return null;
 		}
@@ -106,4 +105,70 @@ public class VMDaoImpl implements VmDao{
 		}	
 		
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<VMDetails> getAllVMs(){
+		
+		List<VMDetails> vms = new ArrayList<VMDetails>();
+		System.out.println("inside hibernate get all vms");
+		vms = this.sessionFactory.getCurrentSession().createQuery("from VMDetails").list();
+		
+//		if (vms.size() > 0) {
+//			for(int i = 0; i < vms.size(); i++){
+//				vms[i] = user.get(i);
+//				
+//				//System.out.println(vms[i].getVmname());
+//			}
+			return vms;
+		} 
+//			else {
+//			return null;
+//		}
+	//}
+	
+	@Override
+	public boolean setVM(VMDetails vm) {
+		// TODO Auto-generated method stub
+		if(this.sessionFactory.getCurrentSession()!=null){
+			try{
+			this.sessionFactory.getCurrentSession().save(vm);
+			
+			return true;
+			}
+			catch (Exception e){
+				e.printStackTrace();
+				return false;
+			}
+		}
+		else {
+			System.out.println("hibernate session not present");
+			return false;
+		}	
+		
+	}
+	
+	@Override
+	public void changeVmState(VMDetails vm) {
+		// TODO Auto-generated method stub
+		if(this.sessionFactory.getCurrentSession()!=null){
+			try{
+				
+				System.out.println("In changeState DAO");
+			this.sessionFactory.getCurrentSession().merge(vm);
+			
+			//return true;
+			}
+			catch (Exception e){
+				e.printStackTrace();
+				//return false;
+			}
+		}
+		else {
+			System.out.println("hibernate session not present");
+			//return false;
+		}	
+		
+	}
+	
 }

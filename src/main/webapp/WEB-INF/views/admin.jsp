@@ -87,14 +87,15 @@
 
             <h4>LIST OF ALL VIRTUAL MACHINES:</h4>
                 <table style="width:100%">
-                
-                    <tr>
-                     <td><a href="vmdetails">${u.vmname}</a></td>
+                <tr><td>VM Name</td><td>VM State</td><td>User</td>
+                </tr>
+                <c:forEach items="${vms}" var="vm">
+                 <tr>
+                     <td><a href="vmdetails/${vm.user.email}/${vm.getVmname()}">${vm.getVmname()}</a></td>
+                     <td>${vm.vmstate}</td>
+                     <td>${vm.user.email}</td>
                  </tr>
-                       <tr>
-                     <td><a href="vmdetails">vm2</a></td>
-                 </tr>
-                
+                 </c:forEach>               
                 </table>
             </div>
 
@@ -117,17 +118,15 @@
         </div>
                 <!-- create vm -->
                 <!--create row-->
-                <div class="row">
-                    <div class="col-md-6">
+                <div class="row" align="center">
+                    <div class="col-md-12">
                     <!-- column 1-->
-                    <form action="addhost">
+                    <form method="link" action="/host">
                     <font color="blue"><input id="addhost" type="submit" name="addhost" value="ADD A HOST"></font></input>
                     </form>
                     </div>
                     <!-- column   2-->
-                    <div class="col-md-6">
                    
-                    </div>
                 </div>        
                 
 
@@ -135,7 +134,7 @@
 
         <!-- Footer -->
         <footer>
-            <div class="row">
+            <div class="row" align ="center">
                 <div class="col-lg-12">
                     <p>TEAM 7 - CMPE275</p>
                 </div>

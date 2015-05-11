@@ -88,26 +88,34 @@
             <div class="col-md-12">
 
             <h4>Virtual machines:</h4>
+            
                 <table style="width:100%">
                     <tr>
                     <td><b>MACHINE NAME</b></td>
-                    <td><b>IP ADDRESS</b></td>
+                    <td><b>OS</b></td>
                     <td><b>MEMORY</b></td>
-                    <td><b>CPU USAGE</b></td>
+                    <td><b>CPU</b></td>
                     <td><b>START/STOP</b></td>
                     <td><b>DELETE</b></td>
                     </tr>
                     <tr>
-                    <td>vm1</a></td>
-                    <td><b>IP ADDRESS</b></td>
-                    <td><b>MEMORY</b></td>
-                    <td><b>CPU USAGE</b></td>
-                    <td><b><input id="startstop" type="submit" value="START/STOP" onclick=""></b></td>
-                    <td><b><input id="delete" type="button" value="DELETE" onclick=""></b></td>
+                    <td>${vms.vmname}</a></td>
+                    <td><b>Windows</b></td>
+                    <td><b>512 MB</b></td>
+                    <td><b>1</b></td>
+                    <td>
+                    <c:if test = "${vms.vmstate==1}">
+                    <b><a href="vm/${vms.vmname}/${vms.vmstate}">Stop</a></b>
+                    </c:if>
+                    <c:if test = "${vms.vmstate==0}">
+                    <b><a href="vm/${vms.vmname}/${vms.vmstate}">Start</a></b>
+                    </c:if>
+                    </td>
+                    <td><b><a href="vm/${vms.vmname}/${vms.vmstate}">Delete</a></b></td>
                 
-                    </tr>
-                
+                    </tr>                
                 </table>
+                
             </div>
 
         </div>
@@ -116,14 +124,13 @@
                 <!--row-->
                 
                     
-                        <div class="col-md-6">
-                            <form action="vmdetails">
+                        <div class="col-md-12" align ="center">
+                          		<form action="vmdetails">
                         <font color="blue"><a href="createvm">CREATE A VIRTUAL MACHINE</a></font>
                         </form>
                         </div>
                     <div class="row">
-                    <div class="col-md-6">
-                    </div>
+                   
                 </div>     
                 
 
@@ -132,7 +139,7 @@
         <!-- Footer -->
         <footer>
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-12" align = "center">
                     <p>TEAM 7 - CMPE275</p>
                 </div>
             </div>
