@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import edu.sjsu.cmpe275.VmModel.Host;
 import edu.sjsu.cmpe275.VmModel.User;
 import edu.sjsu.cmpe275.VmModel.VMDetails;
 
@@ -18,4 +19,5 @@ public interface VmDao {
 	public List<VMDetails> getAllVMs();
 	public boolean setVM(VMDetails vm);
 	void changeVmState(VMDetails vm);
+	boolean setHost(Host host);
 }

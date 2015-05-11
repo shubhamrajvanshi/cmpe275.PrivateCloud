@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.rmi.RemoteException;
 import java.security.MessageDigest;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -44,8 +45,7 @@ import com.vmware.vim25.mo.ServiceInstance;
 import com.vmware.vim25.mo.Task;
 import com.vmware.vim25.mo.VirtualMachine;
 
-import edu.sjsu.cmpe275.VmDao.*;
-import edu.sjsu.cmpe275.VmModel.*;
+import edu.sjsu.cmpe275.VmModel.Host;
 
 @SuppressWarnings("unused")
 @Component
@@ -53,17 +53,18 @@ public class VmServiceImpl implements VmService{
 	//@Autowired getting set by autowire constructor
 	private static ServiceInstance serviceInstance;	
 	
-	
+	@Autowired
+	Host host;
 	
 	
 	private static Logger LOGGER = LoggerFactory.getLogger("VmServiceImpl");
 	
 	@SuppressWarnings("static-access")
-	//@Autowired
-//	public VmServiceImpl(ServiceInstance serviceInstance)
-//	{
-//		this.serviceInstance = serviceInstance ;
-//	}
+	@Autowired
+	public VmServiceImpl(ServiceInstance serviceInstance)
+	{
+		this.serviceInstance = serviceInstance ;
+	}
 	
 	/**
 	 * @return the serviceInstance
@@ -268,6 +269,33 @@ public class VmServiceImpl implements VmService{
 			e.printStackTrace();
 		}
 		return true;
+	}
+	
+	
+	public List<Host> getHost() {
+		// TODO Auto-generated method stub
+		try {
+			ManagedEntity [] mes =  new InventoryNavigator(serviceInstance.getRootFolder()).searchManagedEntities("HostSystem");
+			
+			List<Host> hosts = new ArrayList<Host>();
+			for (int i =0; i<mes.length ; i++ ){
+				Host temp = new Host();
+				temp.setHostname(mes[i].getName());
+				hosts.add(temp);
+			}
+			return hosts;
+		} catch (InvalidProperty e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RuntimeFault e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+		
 	}
 	
 	

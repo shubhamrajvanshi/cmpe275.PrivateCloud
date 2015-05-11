@@ -129,8 +129,8 @@
                 <div class="row">
                     <div class="col-md-6">
                     <!-- column 1-->
-
-                    <form action="createvm">
+					
+                    <form method="get" action="user/newvm">
                     <font color="blue"><input id="createvm" type="submit" name="createvm" value="CREATE A NEW VIRTUAL MACHINE"></font></input>
                     </form>
                     </div>

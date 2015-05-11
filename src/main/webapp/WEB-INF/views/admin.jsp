@@ -118,17 +118,31 @@
         </div>
                 <!-- create vm -->
                 <!--create row-->
+                
                 <div class="row" align="center">
                     <div class="col-md-12">
                     <!-- column 1-->
-                    <form method="link" action="/host">
+                    <form method="get" action="admin/host">
                     <font color="blue"><input id="addhost" type="submit" name="addhost" value="ADD A HOST"></font></input>
                     </form>
                     </div>
-                    <!-- column   2-->
+                    
                    
-                </div>        
-                
+                </div>      
+                <!-- Show list of hosts -->  
+                <div class="row" >
+                	<div class="col-md-12">
+                	<table style="width:100%">
+                <tr><td>Available HOSTS</td></tr>
+                <c:forEach items="${hosts}" var="host">
+                 <tr>
+                     
+                     <td>${host.hostname}</td>
+                 </tr>
+                 </c:forEach>               
+                </table>
+                	</div>
+                </div>
 
         <hr>
 

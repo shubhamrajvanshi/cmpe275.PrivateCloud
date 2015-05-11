@@ -80,7 +80,7 @@
         <!-- Intro Content -->
         <div class="row">
             <div class="col-md-6">
-                <img class="img-responsive" src="D:\virtual.jpg" alt="">
+                <img class="img-responsive" src="<c:url value="/resources/img/virtual.jpg" />" alt="" />
             </div>
             <div class="col-md-6">
                 <h2><font color=blue>About Get Virtual</h2></font>
@@ -98,7 +98,7 @@
             </div>
             <div class="col-md-4 text-center">
                 <div class="thumbnail">
-                    <img class="img-responsive" src="D:\bharti.jpg" alt="">
+                    <img class="img-responsive" src="<c:url value="/resources/img/bharti.jpg"/>"  alt=""/>
                     <div class="caption">
                         <h3>Bharti Kodwani<br></h3>
                          <h5>   SJSU ID: 010014329<br>
@@ -111,7 +111,7 @@
             </div>
             <div class="col-md-4 text-center">
                 <div class="thumbnail">
-                    <img class="img-responsive" src="D:\apurva.jpg" alt="">
+                    <img class="img-responsive" src="<c:url value="/resources/img/apurva.jpg"/>"  alt=""/>
                     <div class="caption">
                         <h3>Apurva Dixit<br></h3>
                            <h5>SJSU ID: 009984559<br>
@@ -122,7 +122,7 @@
             
             <div class="col-md-4 text-center">
                 <div class="thumbnail">
-                    <img class="img-responsive" src="D:\priyanka.jpg" alt="">
+                    <img class="img-responsive" src="<c:url value="/resources/img/priyanka.jpg"/>"  alt=""/>
                     <div class="caption">
                         <h3>Priyanka Karpe<br></h3>
                             <h5>SJSU ID: 009999275<br>
@@ -134,9 +134,9 @@
                 </div>
             </div>
             
-            <div class="col-md-4 text-center" >
-                <div class="thumbnail" align="center">
-                    <img class="img-responsive" src="D:\shubham.jpg" alt="">
+            <div class="col-md-4 text-center" align="center">
+                <div class="thumbnail" >
+                    <img class="img-responsive" src="<c:url value="/resources/img/shubham.jpg"/>"  alt=""/>
                     <div class="caption"  >
                         <h3>Shubham Rajvanshi<br></h3>
                            <h5> SJSU ID: 009428744<br>

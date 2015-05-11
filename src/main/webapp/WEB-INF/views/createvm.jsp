@@ -1,4 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -79,19 +80,18 @@
             </div>
         </div>
             
-            <form:form action="vm/email/vmname/" method="POST" modelAttribute="vMD">
-                    Give name for virtual machine:<br>
-                    <form:input path="vmname" />
+            <form:form action="newvm" method="POST" modelAttribute="vm">
+                    Virtual Machine's Name:<form:input path="vmname" />
                     <br>   
                     Select template:<br>
-                    <form:radiobutton path="template" value="1" label="Virual machine 1" /><br>
-                    <form:radiobutton path="template" value="2" label="Virual machine 2" /><br>
-                    <form:radiobutton path="template" value="3" label="Virual machine 3" /><br>
-                    <form:radiobutton path="template" value="4" label="Virual machine 4" /><br>
-                    <form:radiobutton path="template" value="5" label="Virual machine 5" /><br>
-                    <form:radiobutton path="template" value="6" label="Virual machine 6" /><br>
-                    <form:radiobutton path="template" value="7" label="Virual machine 7" /><br>
-                    <form:radiobutton path="template" value="8" label="Virual machine 8" /><br>
+                    <form:radiobutton path="vmstate" value="1"  />CentOS 1024MB 2cpu<br>
+                    <form:radiobutton path="vmstate" value="2"  />Ubuntu 1024MB 1cpu<br>
+                    <form:radiobutton path="vmstate" value="3"  />Ubuntu 512MB 2cpu<br>
+                    <form:radiobutton path="vmstate" value="4"  />Ubuntu 512MB 1cpu<br>
+                    <form:radiobutton path="vmstate" value="5"  />Ubuntu 512MB 2cpu<br>
+                    <form:radiobutton path="vmstate" value="6"  />Windows 1GB 1cpu<br>
+                    <form:radiobutton path="vmstate" value="7"  />Windows 1GB 2cpu<br>
+                    <form:radiobutton path="vmstate" value="8"  />Windows 2GB 2cpu<br>
                     
                 <br>
                 <br>
@@ -121,7 +121,7 @@
     <!-- /.container -->
 
   	<!-- jQuery -->
-    <script src="<c:url value="resources/js/jquery.js" />" ></script>
+    <script src="<c:url value="/resources/js/jquery.js" />" ></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="<c:url value="/resources/js/bootstrap.min.js" />" ></script>

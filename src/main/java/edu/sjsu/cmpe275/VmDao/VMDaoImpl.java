@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
+import edu.sjsu.cmpe275.VmModel.Host;
 import edu.sjsu.cmpe275.VmModel.User;
 import edu.sjsu.cmpe275.VmModel.VMDetails;
 
@@ -170,5 +171,25 @@ public class VMDaoImpl implements VmDao{
 		}	
 		
 	}
+	
+	@Override
+	public boolean setHost(Host host) {
+		
+		if(this.sessionFactory.getCurrentSession()!=null){
+			try{
+			this.sessionFactory.getCurrentSession().save(host);
+			return true;
+			}
+			catch (Exception e){
+				e.printStackTrace();
+				return false;
+			}
+		}
+		else {
+			System.out.println("hibernate session not present");
+			return false;
+		}	
+	}
+	
 	
 }

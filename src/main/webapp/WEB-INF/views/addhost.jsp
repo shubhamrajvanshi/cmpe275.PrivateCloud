@@ -1,5 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <html lang="en">
 
 <head>
@@ -79,16 +79,16 @@
             </div>
         </div>
             
-            <form:form method="POST" action="" modelAttribute="">
+            <form:form method="POST" action="host" modelAttribute="host">
 
                 Enter HOSTNAME:&nbsp<form:input path="hostname" id="hostname" /><br>
-                Enter USERNAME for the host:&nbsp<form:input path="username" id="username" /><br>
-                Enter PASSWORD:&nbsp<form:password path="password" id="password" /><br>
+                Enter USERNAME for the host:&nbsp<form:input path="username"  id="username" /><br>
+                Enter PASSWORD:&nbsp<form:password path="password"  id="password" /><br>
                    
                    
                 <br>
                 <font color=blue>
-                <input id="submit" type="submit" value="ADD HOST" onclick="alert('Login Credentials:\nusername:administrator\npassword:12!@qwQW')" />
+                <input id="submit" type="submit" value="ADD HOST" onclick="alert('Adding host $hostname.value')" />
                 </font>
                 </form:form>
              

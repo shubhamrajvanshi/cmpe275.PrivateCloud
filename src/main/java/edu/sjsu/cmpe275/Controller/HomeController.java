@@ -7,10 +7,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.MailException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.sjsu.cmpe275.VmDao.VmDao;
+import edu.sjsu.cmpe275.VmModel.Host;
 import edu.sjsu.cmpe275.VmModel.User;
 import edu.sjsu.cmpe275.VmModel.VMDetails;
 import edu.sjsu.cmpe275.VmService.VmService;
@@ -34,8 +35,8 @@ public class HomeController {
 		
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
-//	@Autowired
-//	VmService vmServiceImpl ;
+	@Autowired
+	VmService vmServiceImpl ;
 	@Autowired
 	User user;
 	@Autowired
@@ -44,7 +45,8 @@ public class HomeController {
 	VmDao vMDaoImpl;
 	@Autowired
     private MailSender mailSender;
-	
+	@Autowired
+	Host host ;
 
 	
 	//Simply selects the home page to render by returning its name
@@ -181,19 +183,21 @@ public class HomeController {
 		
 		System.out.println("inside admin get");
 		List<VMDetails> vms = vMDaoImpl.getAllVMs();
+		List<Host> hosts = vmServiceImpl.getHost();
 		System.out.println(vms.size());
 		System.out.println(vms.get(0).getVmname());
 		ModelAndView model = new ModelAndView();
 		model.addObject(this.user);
-		
+		model.addObject("hosts", hosts);
 		model.addObject("vms",vms);
 		model.setViewName("admin");
 		return model;
 	}
 	
+	//To display add host page
 	@RequestMapping(value="/admin/host", method=RequestMethod.GET)
-	public String host(){
-		
+	public String host(@ModelAttribute(value="host") Host host){
+		System.out.println("inside addhost");
 		return "addhost";
 	}
 	
@@ -212,21 +216,26 @@ public class HomeController {
 		return model;
 	}
 	 
+	//To display create new vm page
+	@RequestMapping(value="/user/newvm", method=RequestMethod.GET)
+	public String newvm(@ModelAttribute(value="vm")VMDetails vMDetails ){
+		System.out.println("inside create vm get");
+		return "createvm";
+	}
+		
 	
 	//Create VM: Set default state=0 i.e. stop
 	//The templateid=radio button value
-	@RequestMapping(value = "/vm/{email}/{vmname}", method = RequestMethod.POST)
-	public VMDetails createvm(@PathVariable String email,
-						@PathVariable String vmname,
-						@RequestParam(value="templateid") Integer templateid) {
-		logger.info("Creating VM ", vmname);
-		
+	@RequestMapping(value = "/user/newvm", method = RequestMethod.POST)
+	public String createvm(@ModelAttribute(value="vm")VMDetails vMDetails ) {
+		logger.info("Creating VM ", vMDetails.getVmname());
+		vMDetails.setUser(user);
 		//Implement user session to login a user
 		if(user != null){
-			vMDetails = new VMDetails(vmname, user, 0);		
-			//VmService.createVM(templateid,vmname);	
+			vMDaoImpl.setVM(vMDetails)	;	
+			vmServiceImpl.createVM(vMDetails.getVmstate(),vMDetails.getVmname());	
 		}
-		return vMDetails;
+		return "redirect:/user";
 	}
 	
 	//When user clicks on particular VM it comes here
@@ -276,19 +285,21 @@ public class HomeController {
 	 * @param hostname
 	 * @param user
 	 * @param password
-	 * @return
-	 
-	@RequestMapping(value = "/host", method = RequestMethod.POST)
-	 public String addhost(@RequestParam(value="hostname") String hostname,
-			 			@RequestParam(value="user") String user,
-			 			@RequestParam(value="password") String password){
-
+	 * @return admin page
+	 **/
+	@RequestMapping(value = "/admin/host", method = RequestMethod.POST)
+	 public String addhost(@ModelAttribute(value="host") Host host){
 		
-		vmServiceImpl.addHost(hostname, user, password);
-		
-		
-		return null;
-	}*/
+		if(vmServiceImpl.addHost(host.getHostname(), host.getUsername(), host.getPassword())){
+			System.out.println("Host added successfully");
+			return "redirect:/admin";
+		}
+		else{
+			System.out.println("error adding host");
+			return "redirect:/admin/host";
+		}
+			
+	}
 	
 	
 //Closing of Controller	
