@@ -86,4 +86,24 @@ public class VMDaoImpl implements VmDao{
 			return null;
 		}
 	}
+
+	@Override
+	public boolean setUser(User user) {
+		// TODO Auto-generated method stub
+		if(this.sessionFactory.getCurrentSession()!=null){
+			try{
+			this.sessionFactory.getCurrentSession().save(user);
+			return true;
+			}
+			catch (Exception e){
+				e.printStackTrace();
+				return false;
+			}
+		}
+		else {
+			System.out.println("hibernate session not present");
+			return false;
+		}	
+		
+	}
 }

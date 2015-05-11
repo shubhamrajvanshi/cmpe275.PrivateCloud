@@ -9,6 +9,7 @@
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
 		<java-version>1.6</java-version>
+		<org.springframework.security.version>3.2.3.RELEASE</org.springframework.security.version>
 		<org.springframework-version>4.1.2.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
@@ -27,6 +28,18 @@
 				 </exclusion>
 			</exclusions>
 		</dependency>
+		<!-- Spring mail support -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		<dependency>
+    		<groupId>javax.mail</groupId>
+    		<artifactId>mail</artifactId>
+    		<version>1.4</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
@@ -39,6 +52,19 @@
             <artifactId>spring-orm</artifactId>
             <version>${org.springframework-version}</version>
         </dependency>
+        
+        <!-- Spring Security core and web -->
+        <dependency>
+  		  <groupId>org.springframework.security</groupId>
+    		<artifactId>spring-security-core</artifactId>
+    		<version>${org.springframework.security.version}</version>
+		</dependency>
+        
+        <dependency>
+  	  		<groupId>org.springframework.security</groupId>
+    		<artifactId>spring-security-web</artifactId>
+    		<version>${org.springframework.security.version}</version>
+		</dependency>
         
 		<!-- AspectJ -->
 		<dependency>

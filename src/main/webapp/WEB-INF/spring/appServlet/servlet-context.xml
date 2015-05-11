@@ -25,15 +25,15 @@
 	
 	<context:component-scan base-package="edu.sjsu.cmpe275" />
 	
-<!-- 
- 	<beans:bean id="serviceInstance" class="com.vmware.vim25.mo.ServiceInstance" >
+ 
+ 	<beans:bean id="serviceInstance" class="com.vmware.vim25.mo.ServiceInstance" lazy-init="true">
 		<beans:constructor-arg type="java.net.URL" value="https://130.65.132.124/sdk"/>
 		<beans:constructor-arg type="java.lang.String" value="administrator"/>
 		<beans:constructor-arg type="java.lang.String" value="12!@qwQW"/>
 		<beans:constructor-arg type="boolean" value="true" />
 	</beans:bean>
  
- -->  	<beans:bean id="uRL" class="java.net.URL">
+ 	<beans:bean id="uRL" class="java.net.URL">
 		<beans:constructor-arg value="https://130.65.132.124/sdk"/>
 	</beans:bean>
 	
@@ -73,5 +73,23 @@
 		<beans:property name="username" value="root" />
 		<beans:property name="password" value="cmpe-275" />	
 	</beans:bean>
+	
+	<!-- SET default mail properties -->
+    <beans:bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <beans:property name="host" value="smtp.gmail.com"/>
+        <beans:property name="port" value="587"/>
+        <beans:property name="username" value="shubhamrajvanshi9@gmail.com"/>
+        <beans:property name="password" value="shubhraj"/>
+        <beans:property name="javaMailProperties">
+            <beans:props>
+                <beans:prop key="mail.transport.protocol">smtp</beans:prop>
+                <beans:prop key="mail.smtp.auth">true</beans:prop>
+                <beans:prop key="mail.smtp.starttls.enable">true</beans:prop>
+                <beans:prop key="mail.debug">true</beans:prop>
+            </beans:props>
+        </beans:property>
+    </beans:bean>
+    
+    <beans:bean id="user" class="edu.sjsu.cmpe275.VmModel.User"></beans:bean>
 	
 </beans:beans>

@@ -1,5 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 
 <html>
@@ -75,20 +75,20 @@
         </div>
         <div class="row">
             
-            <form action="signin" method="POST" >
+            <form:form action="signin"  method="POST" modelAttribute="user" >
                    
                    Email:<br>              
-                   <input id="email" type="text" name="email"/>
+                   <form:input path="email" id="email"/>
                     <br>
                     Password:<br>                    
-                    <input type="password" id='password' name="password" />
+                   <form:password path="password" id="password" />
                     <br>
                                     <br>
                 <br>
                 <font color=blue>
                 <input id="submit" type="submit" value="Sign In" >
                 </font>
-            </form>
+            </form:form>
      <!--        <script>
             function send(){
                var email=document.getElementById('email').value;

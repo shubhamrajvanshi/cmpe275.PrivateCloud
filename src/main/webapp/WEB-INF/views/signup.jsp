@@ -1,5 +1,5 @@
-
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%> 
 <!DOCTYPE html>
 <html lang="en">
 
@@ -74,7 +74,7 @@
                    <B><font color=blue>SIGN UP HERE!</font></B> 
                 </h1>
         </div>
-            <form:form action="user/" method="POST" modelAttribute="user">
+            <form:form action="processsignup" method="POST" modelAttribute="user">
             
             
                     First name:<br>
@@ -111,7 +111,7 @@
     <!-- /.container -->
 
     <!-- jQuery -->
-    <script src="<c:url value="resources/js/jquery.js" />" ></script>
+    <script src="<c:url value="/resources/js/jquery.js" />" ></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="<c:url value="/resources/js/bootstrap.min.js" />" ></script>

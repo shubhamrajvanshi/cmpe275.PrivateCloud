@@ -7,6 +7,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.MailException;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import edu.sjsu.cmpe275.VmDao.VmDao;
 import edu.sjsu.cmpe275.VmModel.User;
-import edu.sjsu.cmpe275.VmModel.Luser;
+
 import edu.sjsu.cmpe275.VmModel.VMDetails;
 //import edu.sjsu.cmpe275.VmService.VmService;
 
@@ -42,7 +46,8 @@ public class HomeController {
 	VMDetails vMDetails; 
 	@Autowired
 	VmDao vMDaoImpl;
-	
+	@Autowired
+    private MailSender mailSender;
 	
 
 	
@@ -72,7 +77,7 @@ public class HomeController {
 	//	System.out.println("got  " +user.getFirstname()+" "+ user.getIsadmin());
 	//	user = new User("pri@sjsu.edu", "Pri", "Karpe", "ppp", false);
 //		return user;
-		return "vmdetails";
+		return "redirect:signup";
 	}
 	
 	@RequestMapping(value = "/about", method = RequestMethod.GET)
@@ -87,16 +92,16 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/signin", method = RequestMethod.GET)
-	public String sigin(){
+	public String sigin(@ModelAttribute User user){
 		System.out.println("inside signin get");
 	
 		return "signin";
 	}
 	
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
-	public String signup(){
+	public String signup(@ModelAttribute User user){
 		System.out.println("inside signup get");
-	
+	    
 		return "signup";
 	}
 	
@@ -111,17 +116,28 @@ public class HomeController {
 		
 		return "index";
 	}
-	//Sign-up: Returns created user
-	@RequestMapping(value = "/user", method = RequestMethod.POST)
-	public User signup(@RequestParam(value="firstname") String firstname,
-						@RequestParam(value="lastname") String lastname,
-						@RequestParam(value="email") String email,
-						@RequestParam(value="password") String password) {
-		logger.info("Sign-up : ", email);
-		System.out.println("inside creating user");
-		//Implement user session to login a user
-		user = new User(email, firstname, lastname, password, false);
-		return user;
+	
+	@RequestMapping(value = "/processsignup", method = RequestMethod.POST)
+	public ModelAndView processsignup(@ModelAttribute(value="user") User user)
+	{
+		System.out.println("processing signup");
+		if(vMDaoImpl.setUser(user)){
+			System.out.println("sending mail");
+			SimpleMailMessage message = new SimpleMailMessage();
+			message.setSentDate(new Date());
+			message.setFrom("team7@gmail.com");
+			message.setTo(new String[] {"bharti.15a@gmail.com","priyankakarpe12@gmail.com","dixitapurva6@gmail.com"});
+			message.setSubject("User Created from spring");
+	        message.setText("If you got this then it means I was able to create a new user from our project and send email."
+	        		+ "I won't be there at 1 pm now as I am going to sleep now. Cheers! we will make it work."
+	        		+ "\nUser details are:\nUsername:" + user.getEmail()+"\nPassword:"+user.getPassword()+
+	        		"\nThank You\nShubham Rajvanshi");
+	        mailSender.send(message);
+			return new ModelAndView("index");
+			
+		}
+		else
+			return new ModelAndView("signup");
 	}
 	
 	
@@ -129,14 +145,15 @@ public class HomeController {
 	
 	//Sign-in: Retrives user details using getUser(email)
 	@RequestMapping(value = "/signin", method = RequestMethod.POST)
-	public ModelAndView signin(@RequestParam(value="email") String email,@RequestParam(value="password") String password) {
-		logger.info("Sign-in : ", email);
+	public ModelAndView signin(@ModelAttribute(value="user") User user) {
+		logger.info("Sign-in : ", user.getEmail());
 		
 		//Implement user session to login a user
-		user = vMDaoImpl.getUser(email);
-		System.out.println(user.getFirstname()+ user.getLastname()+ user.getPassword() + "entered password " + password);
+		this.user = vMDaoImpl.getUser(user.getEmail());
+		System.out.println(user.getFirstname()+ user.getLastname()+ "entered password " + user.getPassword() );
+		System.out.println("value from database"+ this.user.getEmail()+ " "+ this.user.getPassword());
 		ModelAndView model = new ModelAndView();
-		VMDetails vms[] = vMDaoImpl.getVMDetails(email);
+		//VMDetails vms[] = vMDaoImpl.getVMDetails(user.getEmail());
 		/*List <String> list = new ArrayList<String>(5);
 		Set <VMDetails> u = new HashSet<VMDetails>();
 		for(int i = 0; i < vms.length-1; i++){
@@ -147,18 +164,18 @@ public class HomeController {
 		System.out.println("List = " + list.toString());
 		//user.setVmdetails(u);*/
 		
-		if(email.equals(user.getEmail()) && password.equals(user.getPassword())){
+		if(this.user.getEmail().equals(user.getEmail()) && this.user.getPassword().equals(user.getPassword())){
 			
 		
-		if(user.getIsadmin()==false)
+		if(this.user.getIsadmin()==false)
 			{
-				model.addObject(user);
-				model.addObject(vms);
+			//	model.addObject(user);
+			//	model.addObject(vms);
 				model.setViewName("user");
 				return model;
 			}
 		else  {
-			model.addObject(user);
+		//	model.addObject(user);
 			model.setViewName("admin");
 			return model;
 			}

@@ -9,7 +9,7 @@ import edu.sjsu.cmpe275.VmModel.VMDetails;
 
 @Repository
 public interface VmDao {
-	
+	public boolean setUser(User user);
 	public User getUser(String email);
 	public VMDetails[] getVMDetails(String email);
 	public VMDetails getVMDetails(String email, String vmname);
