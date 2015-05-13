@@ -87,12 +87,12 @@
 
             <h4>LIST OF ALL VIRTUAL MACHINES:</h4>
                 <table style="width:100%">
-                <tr><td>VM Name</td><td>VM State</td><td>User</td>
+                <tr><td>VM Name</td><td>User</td>
                 </tr>
                 <c:forEach items="${vms}" var="vm">
                  <tr>
-                     <td><a href="vmdetails/${vm.user.email}/${vm.getVmname()}">${vm.getVmname()}</a></td>
-                     <td>${vm.vmstate}</td>
+                     <td><a href="admin/${vm.user.firstname}/${vm.getVmname()}">${vm.getVmname()}</a></td>
+                     
                      <td>${vm.user.email}</td>
                  </tr>
                  </c:forEach>               
@@ -159,7 +159,7 @@
     <!-- /.container -->
 
    <!-- jQuery -->
-    <script src="<c:url value="resources/js/jquery.js" />" ></script>
+    <script src="<c:url value="/resources/js/jquery.js" />" ></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="<c:url value="/resources/js/bootstrap.min.js" />" ></script>

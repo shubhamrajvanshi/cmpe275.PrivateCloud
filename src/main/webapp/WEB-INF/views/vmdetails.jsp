@@ -5,6 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <META HTTP-EQUIV="refresh" CONTENT="30">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -34,7 +35,7 @@
 
 </head>
 
-<body  background="a.jpg">
+<body background="<c:url value="/resources/img/a.jpg"/>">
 
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -53,10 +54,10 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="about">About</a>
+                        <a href="..\about">About</a>
                     </li>
                     <li>
-                        <a href="services">Services</a>
+                        <a href="..\services">Services</a>
                     </li>
                 </ul>
             </div>
@@ -94,23 +95,25 @@
                     <td><b>OS</b></td>
                     <td><b>MEMORY</b></td>
                     <td><b>CPU</b></td>
+                    <td><b>IP Address</b></td>
                     <td><b>START/STOP</b></td>
                     <td><b>DELETE</b></td>
                     </tr>
                     <tr>
                     <td>${vms.vmname}</a></td>
-                    <td><b>Windows</b></td>
-                    <td><b>512 MB</b></td>
-                    <td><b>1</b></td>
+                    <td><b>${vmhardware.guestfullname}</b></td>
+                    <td><b>${vmhardware.memory}&nbspMB</b></td>
+                    <td><b>${vmhardware.cpu}</b></td>
+                    <td><b>${vmhardware.ipaddress}</b></td>
                     <td>
                     <c:if test = "${vms.vmstate==1}">
-                    <b><a href="vm/${vms.vmname}/${vms.vmstate}">Stop</a></b>
+                    <b><a href="${vms.vmname}/${vms.vmstate}">Stop</a></b>
                     </c:if>
                     <c:if test = "${vms.vmstate==0}">
-                    <b><a href="vm/${vms.vmname}/${vms.vmstate}">Start</a></b>
+                    <b><a href="${vms.vmname}/${vms.vmstate}">Start</a></b>
                     </c:if>
                     </td>
-                    <td><b><a href="vm/${vms.vmname}/${vms.vmstate}">Delete</a></b></td>
+                    <td><b><a href="${vms.vmname}/${vms.vmstate}">Delete</a></b></td>
                 
                     </tr>                
                 </table>
@@ -123,14 +126,7 @@
                 <!--row-->
                 
                     
-                        <div class="col-md-12" align ="center">
-                          		<form action="vmdetails">
-                        <font color="blue"><a href="createvm">CREATE A VIRTUAL MACHINE</a></font>
-                        </form>
-                        </div>
-                    <div class="row">
-                   
-                </div>     
+                         
                 
 
         <hr>
@@ -148,10 +144,17 @@
     <!-- /.container -->
 
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    <script src="<c:url value="/resources/js/jquery.js"/>"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+
+    <!-- Script to Activate the Carousel -->
+    <script>
+    $('.carousel').carousel({
+        interval: 5000 //changes the speed
+    })
+    </script>
 
 </body>
 

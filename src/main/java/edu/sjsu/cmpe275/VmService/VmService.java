@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import edu.sjsu.cmpe275.VmModel.Host;
 import edu.sjsu.cmpe275.VmModel.User;
+import edu.sjsu.cmpe275.VmModel.Vmhardware;
 
 @SuppressWarnings("unused")
 @Component
@@ -13,7 +14,7 @@ public interface VmService {
 // VM functions	
 public void createVM(Integer selection, String vmname);
 public boolean deleteVM(String vmname);
-public void getVM(String vmname);
+public Vmhardware getVM(String vmname);
 public boolean powerOFF(String vmname);
 
 // Host functions

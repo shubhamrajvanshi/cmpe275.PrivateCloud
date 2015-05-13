@@ -100,7 +100,7 @@
 
         <!-- Footer -->
         <footer>
-            <div class="row">
+            <div class="row"  align = "center">
                 <div class="col-lg-12">
                     <p>TEAM 7 - CMPE275</p>
                 </div>

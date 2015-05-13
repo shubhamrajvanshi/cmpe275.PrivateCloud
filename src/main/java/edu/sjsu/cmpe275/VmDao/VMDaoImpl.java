@@ -115,18 +115,9 @@ public class VMDaoImpl implements VmDao{
 		System.out.println("inside hibernate get all vms");
 		vms = this.sessionFactory.getCurrentSession().createQuery("from VMDetails").list();
 		
-//		if (vms.size() > 0) {
-//			for(int i = 0; i < vms.size(); i++){
-//				vms[i] = user.get(i);
-//				
-//				//System.out.println(vms[i].getVmname());
-//			}
 			return vms;
 		} 
-//			else {
-//			return null;
-//		}
-	//}
+
 	
 	@Override
 	public boolean setVM(VMDetails vm) {
@@ -156,7 +147,7 @@ public class VMDaoImpl implements VmDao{
 			try{
 				
 				System.out.println("In changeState DAO");
-			this.sessionFactory.getCurrentSession().merge(vm);
+				this.sessionFactory.getCurrentSession().update(vm);
 			
 			//return true;
 			}

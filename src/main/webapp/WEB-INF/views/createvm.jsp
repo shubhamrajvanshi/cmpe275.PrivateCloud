@@ -80,11 +80,11 @@
             </div>
         </div>
             
-            <form:form action="newvm" method="POST" modelAttribute="vm">
+            <form:form action="newvm" method="POST" modelAttribute="vm" >
                     Virtual Machine's Name:<form:input path="vmname" />
                     <br>   
                     Select template:<br>
-                    <form:radiobutton path="vmstate" value="1"  />CentOS 1024MB 2cpu<br>
+                   <%--  <form:radiobutton path="vmstate" value="1"  />CentOS 1024MB 2cpu<br>
                     <form:radiobutton path="vmstate" value="2"  />Ubuntu 1024MB 1cpu<br>
                     <form:radiobutton path="vmstate" value="3"  />Ubuntu 512MB 2cpu<br>
                     <form:radiobutton path="vmstate" value="4"  />Ubuntu 512MB 1cpu<br>
@@ -92,25 +92,37 @@
                     <form:radiobutton path="vmstate" value="6"  />Windows 1GB 1cpu<br>
                     <form:radiobutton path="vmstate" value="7"  />Windows 1GB 2cpu<br>
                     <form:radiobutton path="vmstate" value="8"  />Windows 2GB 2cpu<br>
+                    --%> 
+                    <input type="radio" name="template" value="1"  />CentOS 1024MB 2cpu<br>
+                    <input type="radio" name="template" value="2"  />Ubuntu 1024MB 1cpu<br>
+                    <input type="radio" name="template" value="3"  />Ubuntu 512MB 2cpu<br>
+                    <input type="radio" name="template" value="4"  />Ubuntu 512MB 1cpu<br>
+                    <input type="radio" name="template" value="5"  />Ubuntu 512MB 2cpu<br>
+                    <input type="radio" name="template" value="6"  />Windows 1GB 1cpu<br>
+                    <input type="radio" name="template" value="7"  />Windows 1GB 2cpu<br>
+                    <input type="radio" name="template" value="8"  />Windows 2GB 2cpu<br>
+                    
                     
                 <br>
                 <br>
                 <font color=blue>
                 <!--<input id="submit" type="submit" value="CREATE VIRTUAL MACHINE" onclick="alert('Login Credentials:\nusername:administrator\npassword:12!@qwQW')" />-->
-                <input id="submit" type="submit" value="CREATE VIRTUAL MACHINE" onclick="sendvmdetails()" />
+                <input id="submit" type="submit" value="CREATE VIRTUAL MACHINE" onClick="sendvmdetails(this)"  />
                 
                 </font>
                 </form:form>
              <script>
-             function sendvmdetails(){
+             function sendvmdetails(btn){
+            	alert('Creating new Virtual Machine');
                 alert('Login Credentials:\nusername:administrator\npassword:12!@qwQW');
+                
              }
              </script>
        </div> 
 <hr>
         <!-- Footer -->
         <footer>
-            <div class="row">
+            <div class="row"  align = "center">
                 <div class="col-lg-12">
                     <p>TEAM 7 - CMPE275</p>
                 </div>

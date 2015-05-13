@@ -22,15 +22,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.sjsu.cmpe275.VmDao.VmDao;
 import edu.sjsu.cmpe275.VmModel.Host;
 import edu.sjsu.cmpe275.VmModel.User;
 import edu.sjsu.cmpe275.VmModel.VMDetails;
+import edu.sjsu.cmpe275.VmModel.Vmhardware;
 import edu.sjsu.cmpe275.VmService.VmService;
 
 @Controller
+@SessionAttributes("usersession")
 public class HomeController {
 		
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -61,55 +64,42 @@ public class HomeController {
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		
 		String formattedDate = dateFormat.format(date);
-		
-	//	model.addAttribute("serverTime", formattedDate );
-		//System.out.println(uRL.toString());
-		
-	//	vmServiceImpl.createVM(2,"vm1");
-	//	vmServiceImpl.createVM(4,"vm2");
-	//	vmServiceImpl.createVM(7,"vm3");
-	//	vmServiceImpl.powerOn("CentOS_1024MB_2cpu_tmpl1");
-	//	vmServiceImpl.powerOFF("CentOS_1024MB_2cpu_tmpl1");
-	//	vmServiceImpl.addHost("130.65.133.122", "root", "12!@qwQW");
-	//	user=vMDaoImpl.getUser("s@s.com");
-	//	System.out.println("got  " +user.getFirstname()+" "+ user.getIsadmin());
-	//	user = new User("pri@sjsu.edu", "Pri", "Karpe", "ppp", false);
-//		return user;
-		return "redirect:signup";
+	
+		return "index";
 	}
 	
-	@RequestMapping(value = "/about", method = RequestMethod.GET)
+	@RequestMapping(value = {"/about","/*/about"}, method = RequestMethod.GET)
 	public String about() {
 		
 		return "about";
 	}
 	
-	@RequestMapping(value = "/services", method = RequestMethod.GET)
+	@RequestMapping(value = {"/services","/*/services"}, method = RequestMethod.GET)
 	public String services() {
 		
 		return "services";
 	}
 	
-	@RequestMapping(value = "/signin", method = RequestMethod.GET)
+	@RequestMapping(value = {"/signin","/*/signin"}, method = RequestMethod.GET)
 	public String sigin(@ModelAttribute User user){
 		System.out.println("inside signin get");
 			return "signin";
 	}
 	
-	@RequestMapping(value = "/signup", method = RequestMethod.GET)
+	@RequestMapping(value = {"/signup","/*/signup"}, method = RequestMethod.GET)
 	public String signup(@ModelAttribute User user){
 		System.out.println("inside signup get");
 	    
 		return "signup";
 	}
 	
-	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	@RequestMapping(value = {"/logout","/*/logout"}, method = RequestMethod.GET)
 	public String logout() {
 		
 		return "logout";
 	}
 	
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	@RequestMapping(value = {"/index","/**/index"}, method = RequestMethod.GET)
 	public String index() {
 		
 		return "index";
@@ -126,9 +116,8 @@ public class HomeController {
 			message.setFrom("team7@gmail.com");
 			message.setTo(new String[] {"bharti.15a@gmail.com","priyankakarpe12@gmail.com","dixitapurva6@gmail.com"});
 			message.setSubject("User Created from spring");
-	        message.setText("If you got this then it means I was able to create a new user from our project and send email."
-	        		+ "I won't be there at 1 pm now as I am going to sleep now. Cheers! we will make it work."
-	        		+ "\nUser details are:\nUsername:" + user.getEmail()+"\nPassword:"+user.getPassword()+
+	        message.setText("Thanks for registering with Team 7"
+	        		+ "\nYour login details are:\nUsername:" + user.getEmail()+"\nPassword:"+user.getPassword()+
 	        		"\nThank You\nShubham Rajvanshi");
 	        mailSender.send(message);
 			return new ModelAndView("index");
@@ -149,20 +138,10 @@ public class HomeController {
 		System.out.println(user.getFirstname()+ user.getLastname()+ "entered password " + user.getPassword() );
 		System.out.println("value from database"+ this.user.getEmail()+ " "+ this.user.getPassword());
 		ModelAndView model = new ModelAndView();
-		
 		if(this.user.getEmail().equals(user.getEmail()) && this.user.getPassword().equals(user.getPassword())){
 		 if(this.user.getIsadmin()==false)
 			{
-			//VMDetails vms[] = vMDaoImpl.getVMDetails(user.getEmail());
-				/*List <String> list = new ArrayList<String>(5);
-				Set <VMDetails> u = new HashSet<VMDetails>();
-				for(int i = 0; i < vms.length-1; i++){
-					//u.add(vms[i]);
-					list.add(vms[i].getVmname());
-					System.out.println(vms[i].getVmname());
-				}
-				System.out.println("List = " + list.toString());
-				//user.setVmdetails(u);*/
+			
 				model.setViewName("user");
 				return "redirect:/user";
 			}
@@ -206,7 +185,7 @@ public class HomeController {
 		
 		System.out.println("inside user get");
 		List<VMDetails> vms = vMDaoImpl.getVMDetails(this.user.getEmail());
-		System.out.println("Number of VMs for "+ this.user.getEmail() + ": " + vms.size());
+		//System.out.println("Number of VMs for "+ this.user.getEmail() + ": " + vms.size());
 		
 		ModelAndView model = new ModelAndView();
 		model.addObject(this.user);
@@ -227,57 +206,60 @@ public class HomeController {
 	//Create VM: Set default state=0 i.e. stop
 	//The templateid=radio button value
 	@RequestMapping(value = "/user/newvm", method = RequestMethod.POST)
-	public String createvm(@ModelAttribute(value="vm")VMDetails vMDetails ) {
+	public String createvm(@ModelAttribute(value="vm")VMDetails vMDetails, @RequestParam("template") int template ) {
+		System.out.println("inside newvm post");
 		logger.info("Creating VM ", vMDetails.getVmname());
 		vMDetails.setUser(user);
 		//Implement user session to login a user
 		if(user != null){
+			vMDetails.setVmstate(1);
 			vMDaoImpl.setVM(vMDetails)	;	
-			vmServiceImpl.createVM(vMDetails.getVmstate(),vMDetails.getVmname());	
+			vmServiceImpl.createVM(template,vMDetails.getVmname());	
 		}
 		return "redirect:/user";
 	}
 	
 	//When user clicks on particular VM it comes here
-	@RequestMapping(value = "/vmdetails/{email}/{vmname}", method = RequestMethod.GET)
+	@RequestMapping(value = {"/user/{email}/{vmname}","/admin/{email}/{vmname}"}, method = RequestMethod.GET)
 	public ModelAndView viewvm(@PathVariable String email,
 						@PathVariable String vmname) {
 		logger.info("Showing VM ", vmname);
 		
 		//if(user != null){
 			vMDetails = vMDaoImpl.getVMDetails(email, vmname);
+			Vmhardware vmhardware = vmServiceImpl.getVM(vmname);
 			System.out.println("inside vmdetails - user- vms : ");
 		//}
 			ModelAndView model = new ModelAndView();
 			//model.addObject(this.user);
-			
+			model.addObject("vmhardware", vmhardware);
 			model.addObject("vms",vMDetails);
 			model.setViewName("vmdetails");
 			return model;
 	}
 
 	//Change the status of the VM
-	@RequestMapping(value = "/vmdetails/{email}/vm/{vmname}/{status}", method = RequestMethod.GET)
+	@RequestMapping(value = {"/user/{email}/{vm}/{status}","/admin/{email}/{vm}/{status}"}, method = RequestMethod.GET)
 	public String changeState(@PathVariable String email,
-						@PathVariable String vmname,
+						@PathVariable String vm,
 						@PathVariable String status) {
-		logger.info("Powering Off vm ", vmname);
-		System.out.println("inside changeState");
+		logger.info("Powering Off vm ", vm);
+		System.out.println("inside changeState" + status);
 		if(vMDetails != null){
 			//if 1: Change state to poweroff
 			if(status.equals("1")){
-	//			vmServiceImpl.powerOFF(vmname);
+			vmServiceImpl.powerOFF(vm);
 				vMDetails.setVmstate(0);
 			}
 			else if(status.equals("0")){
-	//			vmServiceImpl.powerOn(vmname);
+				vmServiceImpl.powerOn(vm);
 				vMDetails.setVmstate(1);
 			}
 			vMDaoImpl.changeVmState(vMDetails);
 		}
 		
 		
-		return "redirect:/vmdetails/" + email + "/" + vmname;
+		return "redirect:/user";
 	}
 	
 	

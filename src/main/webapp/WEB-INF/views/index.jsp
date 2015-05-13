@@ -27,7 +27,7 @@
     </style>
 </head>
 
-<body background="a.jpg">
+<body background="<c:url value="/resources/img/a.jpg"/>">
 
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -71,19 +71,19 @@
         <!-- Wrapper for slides -->
         <div class="carousel-inner">
             <div class="item active">
-                <div class="fill" style="background-image:url('D:\image.jpg');"></div>
+                <div class="fill" style="background-image:url('<c:url value="/resources/img/image.jpg"/>');"></div>
                 <div class="carousel-caption">
                     <h4><font color="red">CREATE/DELETE A VIRTUAL MACHINE</font></h4>
                 </div>
             </div>
             <div class="item">
-                <div class="fill" style="background-image:url('D:\image1.jpg');"></div>
+                <div class="fill" style="background-image:url('<c:url value="/resources/img/image1.jpg"/>');"></div>
                 <div class="carousel-caption">
                     <h4><font color="red">USE CLOUD TECHNOLOGY</font></h4>
                 </div>
             </div>
             <div class="item">
-                <div class="fill" style="background-image:url('D:\image.jpg');"></div>
+                <div class="fill" style="background-image:url('<c:url value="/resources/img/image.jpg"/>');"></div>
                 <div class="carousel-caption">
                     <h4><font color="red">ADD A HOST</font></h4>
                 </div>
@@ -136,7 +136,7 @@
 
         <!-- Footer -->
         <footer>
-            <div class="row">
+            <div class="row"  align = "center">
                 <div class="col-lg-12">
                     <p>TEAM7-CMPE275</p>
                 </div>
@@ -147,10 +147,10 @@
     <!-- /.container -->
 
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    <script src="<c:url value="/resources/js/jquery.js"/>"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
 
     <!-- Script to Activate the Carousel -->
     <script>

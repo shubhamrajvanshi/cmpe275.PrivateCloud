@@ -101,7 +101,7 @@
                 </tr>
                 <c:forEach items="${vms}" var="vm">
                  <tr>
-                     <td><a href="vmdetails/${vm.user.email}/${vm.getVmname()}">${vm.getVmname()}</a></td>
+                     <td><a href="user/${vm.user.firstname}/${vm.getVmname()}">${vm.getVmname()}</a></td>
                  </tr>
                  </c:forEach>               
                 </table>
@@ -145,7 +145,7 @@
 
         <!-- Footer -->
         <footer>
-            <div class="row">
+            <div class="row"  align = "center">
                 <div class="col-lg-12">
                     <p>TEAM 7 - CMPE275</p>
                 </div>

@@ -46,6 +46,7 @@ import com.vmware.vim25.mo.Task;
 import com.vmware.vim25.mo.VirtualMachine;
 
 import edu.sjsu.cmpe275.VmModel.Host;
+import edu.sjsu.cmpe275.VmModel.Vmhardware;
 
 @SuppressWarnings("unused")
 @Component
@@ -55,6 +56,8 @@ public class VmServiceImpl implements VmService{
 	
 	@Autowired
 	Host host;
+	@Autowired
+	Vmhardware vmhardware;
 	
 	
 	private static Logger LOGGER = LoggerFactory.getLogger("VmServiceImpl");
@@ -193,16 +196,19 @@ public class VmServiceImpl implements VmService{
 	
 
 	@Override
-	public void getVM(String vmname) {
+	public Vmhardware getVM(String vmname) {
 		//System.out.println(serviceInstance.getServerConnection().getUsername());
 	//	Datacenter dc = null ;
 	//	System.out.println(serviceInstance.getRootFolder().getMOR().getType()+" "+serviceInstance.getRootFolder().getMOR().get_value()+" "+ serviceInstance.getRootFolder().getMOR().getVal() );
 				 VirtualMachine vm;
 				 try {
-						vm = (VirtualMachine) new InventoryNavigator(serviceInstance.getRootFolder()).searchManagedEntity("VirtualMachine", "CentOS_1024MB_2cpu_tmpl1");
+						vm = (VirtualMachine) new InventoryNavigator(serviceInstance.getRootFolder()).searchManagedEntity("VirtualMachine", vmname);
 						System.out.println(vm.getName());
-				 				
-				 				
+						vmhardware.setGuestfullname(vm.getConfig().getGuestFullName());
+						vmhardware.setIpaddress(vm.getGuest().getIpAddress());
+						vmhardware.setCpu(vm.getConfig().getHardware().getNumCPU());
+						vmhardware.setMemory(vm.getConfig().getHardware().getMemoryMB());
+				 					return vmhardware;
 				 				} catch (InvalidProperty e) {
 								// TODO Auto-generated catch block
 									e.printStackTrace();
@@ -215,7 +221,7 @@ public class VmServiceImpl implements VmService{
 								}
 							 
 							
-						
+				 return null;
 				
 		
 	}
