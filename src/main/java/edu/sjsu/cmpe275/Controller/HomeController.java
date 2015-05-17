@@ -238,9 +238,9 @@ public class HomeController {
 			return model;
 	}
 
-	//Change the status of the VM
-	@RequestMapping(value = {"/user/{email}/{vm}/{status}","/admin/{email}/{vm}/{status}"}, method = RequestMethod.GET)
-	public String changeState(@PathVariable String email,
+	//Change the status of the VM  ,"/admin/{email}/{vm}/{status}"
+	@RequestMapping(value = {"/{usertype}/{email}/{vm}/{status}"}, method = RequestMethod.GET)
+	public String changeState(@PathVariable String usertype,@PathVariable String email,
 						@PathVariable String vm,
 						@PathVariable String status) {
 		logger.info("Powering Off vm ", vm);
@@ -257,9 +257,10 @@ public class HomeController {
 			}
 			vMDaoImpl.changeVmState(vMDetails);
 		}
-		
-		
+		if(usertype.equals("user"))		
 		return "redirect:/user";
+		else
+			return "redirect:/admin";
 	}
 	
 	

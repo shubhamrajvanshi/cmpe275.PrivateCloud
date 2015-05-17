@@ -29,7 +29,7 @@
     </style>
 </head>
 
-<body  background="a.jpg">
+<body  background="<c:url value="/resources/img/a.jpg"/>">
 
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">

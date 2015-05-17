@@ -113,7 +113,7 @@
                     <b><a href="${vms.vmname}/${vms.vmstate}">Start</a></b>
                     </c:if>
                     </td>
-                    <td><b><a href="${vms.vmname}/${vms.vmstate}">Delete</a></b></td>
+                    <td><b><a href="#">Delete</a></b></td>
                 
                     </tr>                
                 </table>
